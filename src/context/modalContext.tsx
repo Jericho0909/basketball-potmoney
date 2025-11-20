@@ -1,0 +1,40 @@
+import { createContext } from "react";
+import useModal from "../hooks/useModal";
+import type { Props } from "../types/models";
+import type { ModalKey } from "../types/models";
+
+interface ModalContextType {
+    isOpen: boolean,
+    selectedModal: ModalKey,
+    setSelectedModal: React.Dispatch<React.SetStateAction<ModalKey>>,
+    toggleModal: () => void
+    
+}
+
+const defaultValue: ModalContextType = {
+    isOpen: false,
+    selectedModal: "",
+    setSelectedModal: () => {},
+    toggleModal: () => {},   
+}
+
+const ModalContext = createContext<ModalContextType>(defaultValue)
+export const ModalProvider = ({ children }: Props) => {
+    const { isOpen, selectedModal, setSelectedModal, toggleModal } = useModal() 
+
+    return(
+        <ModalContext.Provider
+            value={{
+                isOpen,
+                selectedModal,
+                setSelectedModal,
+                toggleModal
+            }}
+        >
+            {children}
+        </ModalContext.Provider>
+    )
+}
+
+export default ModalContext
+

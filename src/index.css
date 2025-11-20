@@ -1,9 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
-  
+
+}
+
+@layer components {
+    input::-ms-reveal,
+    input::-ms-clear {
+        display: none;
+    }
+
+    input::-webkit-contacts-auto-fill-button,
+    input::-webkit-credentials-auto-fill-button {
+        display: none;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .scrollbar-custom::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .scrollbar-custom::-webkit-scrollbar-track {
+        background: #1f1f1f;
+        border-radius: 4px;
+    }
+
+    .scrollbar-custom::-webkit-scrollbar-thumb {
+        background: white;
+        border-radius: 4px;
+    }
+
+    .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+        background: #d97706;
+    }
+
+    .loader {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        --b: 8px;
+        border-radius: 50%;
+        padding: 1px;
+        background: conic-gradient(#0000 10%, #f03355) content-box;
+        -webkit-mask:
+            repeating-conic-gradient(#0000 0deg, #000 1deg 20deg, #0000 21deg 36deg),
+            radial-gradient(farthest-side, #0000 calc(100% - var(--b) - 1px), #000 calc(100% - var(--b)));
+        -webkit-mask-composite: destination-in;
+                mask-composite: intersect;
+        animation: l4 1s infinite steps(10);
+    }
+
+    @keyframes l4 {
+        to {
+            transform: rotate(1turn);
+        }
+    }
+
 }
 
 
