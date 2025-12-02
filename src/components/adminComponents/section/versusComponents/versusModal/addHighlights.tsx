@@ -67,6 +67,16 @@ const AddHighlights = () => {
                     }
                 `}
             >
+                <span className="absolute top-0 font-outfit">
+                    {player === "PlayerOne"
+                        ? (
+                            `${playerOneDetails.highlights.length}/3`
+                        )
+                        : (
+                            `${playerTwoDetails.highlights.length}/3`
+                        )
+                    }
+                </span>
                 {playerHighlights.length === 0
                     ? (
                         <span className="font-outfit">
@@ -77,7 +87,7 @@ const AddHighlights = () => {
                         <div
                             className="w-full max-h-[9.50rem] mt-[1.50rem] p-1"
                         >
-                            <ul className="flex items-center justify-center w-full h-full gap-1">
+                            <ul className="flex items-center justify-center sm:justify-around  w-full h-full gap-1">
                                 {playerHighlights.map((videoUrl, index) => (
                                     <li 
                                         key={index}
@@ -106,6 +116,7 @@ const AddHighlights = () => {
                     ref={fileRef}
                     id="highlights"
                     type="file"
+                    accept="video/*"
                     className="w-full text-white font-outfit"
                     onChange={(e) => handleUpload(e)}
                     onKeyDown={(e) => {

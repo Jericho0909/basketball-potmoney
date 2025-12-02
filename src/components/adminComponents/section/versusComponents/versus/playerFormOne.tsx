@@ -1,6 +1,5 @@
 import { useContext } from "react"
 import PlayerFormContext from "../../../../../context/playerFormContext"
-import PlayerImage from "../playerInfoInput/playerImage"
 import PlayerFullName from "../playerInfoInput/playerFullName"
 import PlayerTeam from "../playerInfoInput/playerTeam"
 import PlayerNumber from "../playerInfoInput/playerNumber"
@@ -15,10 +14,6 @@ const PlayerFormOne = () => {
 
     return(
         <>
-            <PlayerImage
-                playerDetails={playerOneDetails}
-                setPlayerDetails={setPlayerOneDetails}
-            />
             <PlayerFullName
                 playerDetails={playerOneDetails}
                 setPlayerDetails={setPlayerOneDetails}

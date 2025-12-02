@@ -1,38 +1,46 @@
-import { useRef } from "react"
+import { useContext, useRef, useEffect } from "react"
+import ImageContext from "../../../../../context/imageContext"
 import type { PlayerFormProps } from "../../../../../types/models"
 
 const PlayerImage = ({ playerDetails, setPlayerDetails }: PlayerFormProps<any>) => {
+    const { preview, loadingimg, handleUpload } = useContext(ImageContext)
     const fileRef = useRef<HTMLInputElement | null>(null)
 
     const handleClick = () => {
         fileRef.current?.click();
     }
 
-    const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-
-        const previewURL = URL.createObjectURL(file);
-
-        setPlayerDetails(details => ({
+    useEffect(() => {
+         setPlayerDetails(details => ({
             ...details,
-            image: previewURL,
+            image: preview,
         }))
-    }
+    }, [preview])
+
     return(
         <div 
             onClick={handleClick}
             className="w-[13rem] h-[10rem] bg-gray-200 flex items-center justify-center cursor-pointer rounded-lg mb-1"
         >
-            {playerDetails.image !== ""
-                ? <img
-                    src={playerDetails.image}
-                    alt="player-Image"
-                    loading="lazy"
-                /> 
-                :   <span>
-                        click me
+            {loadingimg 
+                ? (
+                    <span>
+                        Loading...
                     </span>
+                )
+                : (
+                    playerDetails.image !== ""
+                    ? <img
+                            src={playerDetails.image || ""}
+                            alt="player-Image"
+                            loading="lazy"
+                            className="w-full h-full"
+                        /> 
+                    :   <span>
+                            click me
+                        </span>
+                )
+
             }
 
             <input 

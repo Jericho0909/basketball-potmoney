@@ -3,7 +3,7 @@ import toTitleCase from "../../../../../utils/toTitleCase"
 
 const PlayerTeam = ({ playerDetails, setPlayerDetails }: PlayerFormProps<any>) => {
     return (
-        <div className="flex items-center justify-start gap-1 w-[50%] p-1 mb-1">
+        <div className="flex items-center justify-start gap-1 w-[95%] sm:w-[90%] md:w-[85%] lg:w-[65%] xl:w-[55%]  p-1 mb-1">
             <label 
                 className="w-[15rem] text-end font-outfit"
                 htmlFor="player-team">

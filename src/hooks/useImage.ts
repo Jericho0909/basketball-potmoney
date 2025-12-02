@@ -32,7 +32,7 @@ const useImage = () => {
         setPreview, 
         loadingimg, 
         handleUpload 
-    };
+    }
 }
 
 export default useImage

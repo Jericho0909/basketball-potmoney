@@ -1,117 +1,167 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import PlayerFormContext from "../../../../../context/playerFormContext";
+import ModalContext from "../../../../../context/modalContext";
+import MatchUpContext from "../../../../../context/matchupContext";
 import PlayerFormOne from "./playerFormOne";
 import PlayerFormTwo from "./playerFormTwo";
-import type { Player } from "../../../../../types/models";
+import ShowToast from "../../../../../utils/showToast";
 import { v4 as uuidv4 } from "uuid";
 
-interface VersusType{
-    id: string
-    playerOne: Player<any>
-    playerTwo: Player<any>
-    location: string
-    money: number
-}
-
-const emptyPlayer: Player<any> = {
-    image: "",
-    fullname: "",
-    team: "",
-    jerseynumber: 0,
-    champoinrings: 0,
-    achievements: [],
-    pictures: [],
-    highlights: []
-}
 const Versus = () => {
-    const matchupId = uuidv4().replace(/-/g, "").slice(0, 5);
     const { playerOneDetails, 
-        setPlayerOneDetails,
-        playerTwoDetails, 
-        setPlayerTwoDetails
+        playerTwoDetails,
+        isPlayerOneReady,
+        setIsPlayerOneReady,
+        isPlayerTwoReady, 
+        setIsPlayerTwoReady
     } = useContext(PlayerFormContext)
-    const [ matchup, setMatchUp ] = useState<VersusType>({
-        id: matchupId,
-        playerOne: emptyPlayer,
-        playerTwo: emptyPlayer,
-        location: "",
-        money: 0
-
-    })
-
-    const [ isPlayerOneReady, setIsPlayerOneReady ] = useState<boolean>(false)
-    const [ isPlayerTwoReady, setIsPlayerTwoReady ] = useState<boolean>(false)
+    const { setMatchUp } = useContext(MatchUpContext)
+    const { toggleModal, setSelectedModal } = useContext(ModalContext)
+    const { Toast } = ShowToast()
+    const matchupId = uuidv4().replace(/-/g, "").slice(0, 5)
 
     const handleSubmitPlayerOne = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        setMatchUp(details => ({
+            ...details,
+            id: matchupId,
+            playerOne: playerOneDetails
+        }))
         setIsPlayerOneReady(true)
-        matchup.playerOne = playerOneDetails
     }
 
 
     const handleSubmitPlayerTwo = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        setIsPlayerTwoReady(true)
+        setMatchUp(details => ({
+            ...details,
+            playerTwo: playerTwoDetails
+        }))
         setIsPlayerTwoReady(true)
     }
 
     const hanldeSetMatch = () => {
-        console.log(matchup.playerOne)
+        if(!isPlayerOneReady || !isPlayerTwoReady){
+            Toast("error", "Please set the players as ready.", 3000)
+            return
+        }    
+    
+        toggleModal()
+        setSelectedModal("matchup")
     }
 
     return (
-        <div className="flex items-center justify-start flex-col w-full h-auto p-1">
+        <section className="flex items-center justify-start flex-col w-full h-auto p-1">
             <div className="w-full h-auto text-center"> 
                 <span className="text-[clamp(1.10rem,2vw,1.70rem)] font-thin font-anton">
                     Versus
                 </span>
             </div>
-            <div className="grid grid-cols-2 w-full h-auto gap-1 border border-black mb-[1rem]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 w-full h-auto gap-1 border border-black mb-[1rem]">
                 <div 
-                    className={`flex items-center justify-start flex-col bg-red-600 p-1 relative
-                        ${isPlayerOneReady ? "blur-[1px]" : ""}
-                    `}>
+                    className="flex items-center justify-start flex-col bg-red-600 p-1 relative">
                     <h1 className="text-[1.50rem] font-outfit font-semibold mb-1">
                         Player 1
                     </h1>
                     <form
-                        className="flex items-center justify-start flex-col w-full p-1"
+                        className={`flex items-center justify-start flex-col w-full p-1
+                            ${isPlayerOneReady ? "blur-[1px]" : ""}
+                        `}
                         onSubmit={(e) => handleSubmitPlayerOne(e)}
                     >
                         <PlayerFormOne/>
-                        <button 
-                            type="submit"
-                            className="font-outfit font-semibold tracking-wider text-black border-2 border-black px-5 py-2 rounded
-                            transition-all duration-200 hoverable:hover:text-white hoverable:hover:border-white
-                            hoverable:hover:bg-blue-600"
-                        >
-                            Ready
-                        </button>
+                        {!isPlayerOneReady && (
+                            <button 
+                                type="submit"
+                                className={`font-outfit font-semibold tracking-wider text-black border-2 border-black px-5 py-2 rounded
+                                transition-all duration-200 hoverable:hover:text-white hoverable:hover:border-white
+                                hoverable:hover:bg-blue-600
+                                    ${playerOneDetails.pictures.length !== 0 ||
+                                    playerOneDetails.highlights.length !== 0 ? "cursor-not-allowed" : "cursor-pointer"}
+                                `}
+                                disabled={
+                                    playerOneDetails.pictures.length !== 0 ||
+                                    playerOneDetails.highlights.length !== 0
+                                }
+                            >
+                                Ready
+                            </button>
+                        )}
                     </form>
                     {isPlayerOneReady && (
-                        <div className="absolute w-full h-full bg-transparent">
-
-                        </div>
+                        <>
+                            <div className="flex items-center justify-center flex-col absolute w-full h-full bg-transparent">
+                                <img
+                                    src={playerOneDetails.pictures[0]}
+                                    alt="playerOnePic"
+                                    loading="lazy"
+                                    className="w-[45%] sm:w-[50%] xl:w-[35%]
+                                    h-[50%] border border-black rounded-[50%] shadow-lg"
+                                />
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => setIsPlayerOneReady(false)}
+                                className="font-outfit font-semibold tracking-wider text-black border-2 border-black px-8 py-2 rounded z-10
+                                transition-all duration-200 hoverable:hover:bg-white"
+                            >
+                                Cancel
+                            </button>
+                        </>
                     )}
                 </div>
-                <div className="flex items-center justify-start flex-col bg-blue-600 p-1">
+                <div
+                    className="flex items-center justify-start flex-col bg-blue-600 p-1 relative"
+                >
                     <h1 className="text-[1.50rem] font-outfit font-semibold mb-1">
                         Player 2
                     </h1>
                     <form
-                        className="flex items-center justify-start flex-col w-full p-1"
+                        className={`flex items-center justify-start flex-col w-full p-1
+                            ${isPlayerTwoReady ? "blur-[1px]" : ""}
+                        `}
                         onSubmit={(e) => handleSubmitPlayerTwo(e)}
                     >
                         <PlayerFormTwo/>
-                        <button 
-                            type="submit"
-                            className="font-outfit font-semibold tracking-wider text-black border-2 border-black px-5 py-2 rounded
-                            transition-all duration-200 hoverable:hover:text-white hoverable:hover:border-white
-                            hoverable:hover:bg-red-600"
-                        >
-                            Ready
-                        </button>
+                        {!isPlayerTwoReady && (
+                            <button 
+                                type="submit"
+                                className={`font-outfit font-semibold tracking-wider text-black border-2 border-black px-5 py-2 rounded
+                                transition-all duration-200 hoverable:hover:text-white hoverable:hover:border-white
+                                hoverable:hover:bg-blue-600
+                                    ${playerTwoDetails.pictures.length !== 0 ||
+                                    playerTwoDetails.highlights.length !== 0 ? "cursor-not-allowed" : "cursor-pointer"}
+                                `}
+                                disabled={
+                                    playerTwoDetails.pictures.length !== 0 ||
+                                    playerTwoDetails.highlights.length !== 0
+                                }
+                            >
+                                Ready
+                            </button>
+                        )}
                     </form>
+                    {isPlayerTwoReady && (
+                        <>
+                            <div className="flex items-center justify-center flex-col absolute w-full h-full bg-transparent">
+                                <img
+                                    src={playerTwoDetails.pictures[0]}
+                                    alt="playerTwoPic"
+                                    loading="lazy"
+                                    className="w-[45%] sm:w-[50%] xl:w-[35%]
+                                    h-[50%] border border-black rounded-[50%] shadow-lg"
+                                />
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => setIsPlayerTwoReady(false)}
+                                className="font-outfit font-semibold tracking-wider text-black border-2 border-black px-8 py-2 rounded z-10
+                                transition-all duration-200 hoverable:hover:bg-white"
+                            >
+                                Cancel
+                            </button>
+                        </>
+                    )}
                 </div>
             </div>
             <button
@@ -122,7 +172,7 @@ const Versus = () => {
             >
                 Set Match
             </button>
-        </div>
+        </section>
     )
 }
 

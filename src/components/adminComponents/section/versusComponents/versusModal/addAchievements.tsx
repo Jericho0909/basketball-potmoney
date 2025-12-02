@@ -73,9 +73,10 @@ const AddAchievements = () => {
     return(
         <>
             <div 
-                className={`w-full h-[11.50rem] p-1
-                    ${playerAchievements.length === 0 && 
+                className={`flex w-full
+                    ${playerAchievements.length === 0 ? 
                         "flex items-center justify-center"
+                        : ""
                     }
                 `}
             >
@@ -88,7 +89,7 @@ const AddAchievements = () => {
                     :   (
                         <div 
                             ref={achievementsRef}
-                            className="w-full max-h-[9.50rem] mt-[1.50rem] p-1 overflow-y-auto scrollbar-custom"
+                            className="w-full h-[11rem] p-1 overflow-y-auto scrollbar-custom"
                         >
                             <ul className="w-full h-full list-disc pl-5">
                                 {playerAchievements.map((achievement, index) => (
@@ -139,7 +140,7 @@ const AddAchievements = () => {
                         setAchievements(titleCase)
                     }}
                     onKeyDown={(e) => {
-                        if (e.key === "Enter") {
+                        if(e.key === "Enter"){
                             e.preventDefault()
                             handleAdd(achievements)
                         }

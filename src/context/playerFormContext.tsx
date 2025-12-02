@@ -8,6 +8,10 @@ interface PlayerFormContextType<T> {
     setPlayerOneDetails: React.Dispatch<React.SetStateAction<Player<any>>>
     playerTwoDetails: Player<T>
     setPlayerTwoDetails: React.Dispatch<React.SetStateAction<Player<any>>>
+    isPlayerOneReady: boolean
+    setIsPlayerOneReady: React.Dispatch<React.SetStateAction<boolean>>
+    isPlayerTwoReady: boolean
+    setIsPlayerTwoReady: React.Dispatch<React.SetStateAction<boolean>>
 
 }
 
@@ -20,7 +24,8 @@ const defaultValue: PlayerFormContextType<any> = {
         champoinrings: 0,
         achievements: [],
         pictures: [],
-        highlights: []
+        highlights: [],
+        votes: []
     },
     setPlayerOneDetails: () => {},
     playerTwoDetails: {
@@ -31,9 +36,14 @@ const defaultValue: PlayerFormContextType<any> = {
         champoinrings: 0,
         achievements: [],
         pictures: [],
-        highlights: []
+        highlights: [],
+        votes: []
     },
     setPlayerTwoDetails: () => {},
+    isPlayerOneReady: false,
+    setIsPlayerOneReady: () => {},
+    isPlayerTwoReady: false,
+    setIsPlayerTwoReady: () => {}
 }
 
 const PlayerFormContext = createContext<PlayerFormContextType<any>>(defaultValue)
@@ -47,7 +57,8 @@ export const PlayerFormProvider = ({ children }: Props) => {
         champoinrings: 0,
         achievements: [],
         pictures: [],
-        highlights: []
+        highlights: [],
+        votes: []
     })
 
     const [ playerTwoDetails, setPlayerTwoDetails ] = useState<Player<any>>({
@@ -58,8 +69,12 @@ export const PlayerFormProvider = ({ children }: Props) => {
         champoinrings: 0,
         achievements: [],
         pictures: [],
-        highlights: []
+        highlights: [],
+        votes: []
     })
+
+    const [ isPlayerOneReady, setIsPlayerOneReady ] = useState<boolean>(false)
+    const [ isPlayerTwoReady, setIsPlayerTwoReady ] = useState<boolean>(false)
 
     return (
         <PlayerFormContext.Provider
@@ -68,6 +83,11 @@ export const PlayerFormProvider = ({ children }: Props) => {
                 setPlayerOneDetails,
                 playerTwoDetails,
                 setPlayerTwoDetails,
+                isPlayerOneReady,
+                setIsPlayerOneReady,
+                isPlayerTwoReady,
+                setIsPlayerTwoReady
+
             }}
         >
             {children}

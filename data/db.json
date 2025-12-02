@@ -1,9 +1,135 @@
 {
   "admin": [
     {
-      "id": 1,
-      "username" : "TheAdmin",
+      "id": "1",
+      "username": "TheAdmin",
       "password": "TheBasketBall123"
+    }
+  ],
+  "matchups": [
+    {
+      "id": "19de1",
+      "playerOne": {
+        "image": "",
+        "fullname": "Lebron",
+        "team": "Lakers",
+        "jerseynumber": 23,
+        "champoinrings": 4,
+        "achievements": [
+          "Mvp"
+        ],
+        "pictures": [
+          "https://res.cloudinary.com/daxhmcpkq/image/upload/v1764134796/ostqzaemfj7giep7uoja.jpg"
+        ],
+        "highlights": [
+          "https://res.cloudinary.com/daxhmcpkq/video/upload/v1764134816/gelfiqk9nlaf676au5jh.mp4"
+        ],
+        "votes": [
+          {
+            "id": "1",
+            "fullname": "Gojo Zara",
+            "gcashnumber": 912345789,
+            "bet": 1000,
+            "claimed": true,
+            "betOn": "Lebron"
+          },
+          {
+            "id": "2",
+            "fullname": "Jericho Zara",
+            "gcashnumber": 9987654321,
+            "bet": 2000,
+            "claimed": false,
+            "betOn": "Lebron"
+          }
+        ]
+      },
+      "playerTwo": {
+        "image": "",
+        "fullname": "Jordan",
+        "team": "Bulls",
+        "jerseynumber": 45,
+        "champoinrings": 6,
+        "achievements": [
+          "2x Mvp"
+        ],
+        "pictures": [
+          "https://res.cloudinary.com/daxhmcpkq/image/upload/v1764134857/vnzyi9klxdzkpamigdp7.webp"
+        ],
+        "highlights": [
+          "https://res.cloudinary.com/daxhmcpkq/video/upload/v1764134896/huodmula6sdptdadmwv2.mp4"
+        ],
+        "votes": [
+          {
+            "id": "1",
+            "fullname": "Sukuna Zara",
+            "gcashnumber": 912345789,
+            "bet": 1000,
+            "claimed": false,
+            "betOn": "Jordan"
+          },
+          {
+            "id": "2",
+            "fullname": "Yuji Zara",
+            "gcashnumber": 9987654321,
+            "bet": 2000,
+            "claimed": false,
+            "betOn": "Jordan"
+          },
+          {
+            "id": "3",
+            "fullname": "Yuta Zara",
+            "gcashnumber": 9935653311,
+            "bet": 2000,
+            "claimed": false,
+            "betOn": "Jordan"
+          },
+          {
+            "id": "4",
+            "fullname": "Geto Zara",
+            "gcashnumber": 9275753319,
+            "bet": 2000,
+            "claimed": false,
+            "betOn": "Jordan"
+          }
+        ]
+      },
+      "location": "Bagong Pook Coliseum, Rosario, Batangas",
+      "time": "18:00",
+      "date": "2025-12-01",
+      "money": 1500,
+      "winner": "Lebron",
+      "totalVotes": 6
+    },
+    {
+      "id": "56577",
+      "playerOne": {
+        "image": "",
+        "fullname": "Adobo",
+        "team": "Manok",
+        "jerseynumber": 2,
+        "champoinrings": 10,
+        "achievements": [],
+        "pictures": [],
+        "highlights": [],
+        "votes": []
+      },
+      "playerTwo": {
+        "image": "",
+        "fullname": "Tinola",
+        "team": "Manok",
+        "jerseynumber": 54,
+        "champoinrings": 2,
+        "achievements": [],
+        "pictures": [],
+        "highlights": [],
+        "votes": []
+      },
+      "location": "Kawali Ni Glends",
+      "time": "17:24",
+      "date": "2025-12-03",
+      "money": 2000,
+      "winner": "",
+      "totalVotes": 0
     }
   ]
 }

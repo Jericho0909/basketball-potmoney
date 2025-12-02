@@ -6,7 +6,7 @@ interface HeaderProps {
 }
 const Header = ({title, children} : HeaderProps) => {
     return(
-        <div className="flex items-center justify-between w-full h-auto px-[1rem] border border-black">
+        <div className="flex items-center justify-between w-full h-auto px-[1rem] fixed top-0 border border-black z-10 bg-white">
             <div className="flex items-center w-auto h-auto p-1">
                 <div className="w-[5rem] h-[5rem] p-1">
                     <img
@@ -22,9 +22,7 @@ const Header = ({title, children} : HeaderProps) => {
                     </span>
                 </div>
             </div>
-            <div>
-                {children}
-            </div>     
+            {children} 
         </div>
     )
 }

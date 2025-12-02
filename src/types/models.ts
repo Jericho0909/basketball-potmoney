@@ -5,7 +5,7 @@ export interface Props {
 }
 
 export interface Player <T> {
-    image: string
+    image: string | null
     fullname: string,
     team: string,
     jerseynumber: number,
@@ -13,6 +13,7 @@ export interface Player <T> {
     achievements: T[],
     pictures: T[],
     highlights: T[]
+    votes: VoteType[]
 }
 
 export interface PlayerFormProps<T> {
@@ -20,7 +21,51 @@ export interface PlayerFormProps<T> {
     setPlayerDetails: React.Dispatch<React.SetStateAction<Player<T>>>
 }
 
-export type ModalKey = "" | "achievements" | "pictures" | "highlights";
+export interface VersusType{
+    id: string,
+    playerOne: Player<any>,
+    playerTwo: Player<any>,
+    location: string,
+    time: string,
+    date: string,
+    money: number,
+    winner: string,
+    totalVotes: number
+}
+
+export interface DataList<T> {
+    data: T[]
+}
+
+
+export interface Matchup<T> {
+    id: string
+    playerOne: Player<T>,
+    playerTwo: Player<T>,
+    location: string,
+    money: number,
+    time: string,
+    date: string,
+    winner: string,
+    totalVotes: number
+
+}
+
+export interface TableHeaderType {
+    label: string,
+    key: string
+}
+
+export interface VoteType {
+    id: string,
+    fullname: string,
+    gcashnumber: number,
+    bet: number
+    claimed: boolean,
+    betOn: string
+}
+
+export type ModalKey = "" | "achievements" | "pictures" | "highlights" | "matchup" | "matchupdetails";
 
 export interface AdminAcc {
   username: string;
