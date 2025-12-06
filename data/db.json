@@ -128,6 +128,37 @@
       "time": "17:24",
       "date": "2025-12-03",
       "money": 2000,
+      "winner": "Adobo",
+      "totalVotes": 0
+    },
+    {
+      "id": "cb6e6",
+      "playerOne": {
+        "image": "",
+        "fullname": "Player1",
+        "team": "Manok",
+        "jerseynumber": 43,
+        "champoinrings": 32,
+        "achievements": [],
+        "pictures": [],
+        "highlights": [],
+        "votes": []
+      },
+      "playerTwo": {
+        "image": "",
+        "fullname": "Player2",
+        "team": "Manok",
+        "jerseynumber": 54,
+        "champoinrings": 2,
+        "achievements": [],
+        "pictures": [],
+        "highlights": [],
+        "votes": []
+      },
+      "location": "Kawali Ni Glends",
+      "time": "17:03",
+      "date": "2025-12-03",
+      "money": 2000,
       "winner": "",
       "totalVotes": 0
     }

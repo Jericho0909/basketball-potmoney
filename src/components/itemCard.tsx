@@ -11,13 +11,14 @@ import { PhilippinePeso } from 'lucide-react';
 import { X } from 'lucide-react';
 
 interface ItemCardProps {
+    openTo: string
     match: Matchup<any>,
     index: number,
-    openMatchupDetails: (id: string) => void
+    openModal: (id: string) => void
 }
 
 
-const ItemCard = ({ match, index, openMatchupDetails }: ItemCardProps) => {
+const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
     const { matchupList, setMatchupList } = useContext(FetchDataContext)
     const { deleteAction } = useContext(ActionContext)
     const { Toast } = ShowToast()
@@ -40,21 +41,23 @@ const ItemCard = ({ match, index, openMatchupDetails }: ItemCardProps) => {
     return (
         <div
             key={index}
-            onClick={() =>openMatchupDetails(match.id)}
+            onClick={() =>openModal(match.id)}
             className="flex items-center justify-between w-full h-auto gap-2 p-2 border border-black shadow-sm rounded-lg cursor-pointer mb-3 hoverable:hover:shadow-md hoverable:hover:bg-gray-50 hoverable:hover:scale-[1.01] transition-all duration-200
             relative"
         >
-            <div
-                onClick={(e) => {
-                    e.stopPropagation()
-                    deleteMatchUp(match.id)
-                }}
-                className="absolute top-1 right-2 p-1 rounded-md
-                hover:bg-gray-200 hover:scale-105
-                transition-all duration-200 cursor-pointer "
-            >
-                <X size={16} color="black" strokeWidth={3}/>
-            </div>
+            {openTo === "Adminmainpage" && (
+                <div
+                    onClick={(e) => {
+                        e.stopPropagation()
+                        deleteMatchUp(match.id)
+                    }}
+                    className="absolute top-1 right-2 p-1 rounded-md
+                    hover:bg-gray-200 hover:scale-105
+                    transition-all duration-200 cursor-pointer "
+                >
+                    <X size={16} color="black" strokeWidth={3}/>
+                </div>
+            )}
             <div
                 className="flex items-center justify-start flex-col xl:flex-1"
             >

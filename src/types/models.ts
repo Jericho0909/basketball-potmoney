@@ -67,6 +67,8 @@ export interface VoteType {
 
 export type ModalKey = "" | "achievements" | "pictures" | "highlights" | "matchup" | "matchupdetails";
 
+export type ModalKey2 = "" | "vote"
+
 export interface AdminAcc {
   username: string;
   password: string;

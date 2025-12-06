@@ -59,16 +59,16 @@ const Login = () => {
                         onFocus={() => setLoginError(false)}
                         className="peer w-full p-3 rounded bg-nbaOrange border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black focus:border-black shadow-sm"
                     />
-                <label
-                    htmlFor="username"
-                    className={`absolute left-3 text-gray-900 transition-all duration-200 pointer-events-none 
-                    ${admin.username
-                        ? "-top-2 text-sm text-gray-900 bg-nbaOrange px-1"
-                        : "top-3 peer-placeholder-shown:text-gray-900 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-gray-900 bg-nbaOrange px-1"
-                    }`}
-                >
-                    username
-                </label>
+                    <label
+                        htmlFor="username"
+                        className={`absolute left-3 text-gray-900 transition-all duration-200 pointer-events-none 
+                        ${admin.username
+                            ? "-top-2 text-sm text-gray-900 bg-nbaOrange px-1"
+                            : "top-3 peer-placeholder-shown:text-gray-900 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-gray-900 bg-nbaOrange px-1"
+                        }`}
+                    >
+                        username
+                    </label>
                 </div>
                 <div className="relative w-full bg-nbaOrange rounded">
                     <input
@@ -84,6 +84,7 @@ const Login = () => {
                         ))}
                         onFocus={() => setLoginError(false)}
                         className="peer w-full p-3 rounded bg-nbaOrange border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black focus:border-black shadow-sm"
+                        
                     />
                     <button
                         type="button"

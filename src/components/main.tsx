@@ -1,8 +1,14 @@
-import { Outlet } from "react-router-dom";
-const Main = () => {
+import { ReactNode } from "react";
+
+interface MainProps {
+    style: string
+    children: ReactNode
+}
+
+const Main = ({ style, children } :MainProps) => {
     return(
-        <div className="flex items-center justify-center w-full min-h-[80svh] mt-[6rem] lg:pl-[13.50rem] z-1">
-            <Outlet/>
+        <div className={`${style}`}>
+            {children}
         </div>
     )
 }

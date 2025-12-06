@@ -10,6 +10,10 @@
 
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html, body {
   overflow-x: hidden;
 }
@@ -30,6 +34,13 @@ html, body {
         -webkit-appearance: none;
         margin: 0;
     }
+
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 1000px #FF6F00 inset !important; 
+        box-shadow: 0 0 0 1000px #FF6F00 inset !important;
+        -webkit-text-fill-color: black !important;
+    }
+
 
     .scrollbar-custom::-webkit-scrollbar {
         width: 5px;

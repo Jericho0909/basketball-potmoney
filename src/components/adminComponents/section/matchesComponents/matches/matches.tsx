@@ -33,9 +33,10 @@ const Matches = () => {
             {reverseMatchup.map((match, index) => (
                 <ItemCard
                     key={index}
+                    openTo="Adminmainpage"
                     match={match}
                     index={index}
-                    openMatchupDetails={openMatchupDetails}
+                    openModal={openMatchupDetails}
                 />
             ))}
         </section>

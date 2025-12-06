@@ -3,6 +3,7 @@ import Adminpage from "./pages/adminpage";
 import AdminMainPage from "./pages/adminmainpage";
 import Versus from "./components/adminComponents/section/versusComponents/versus/versus";
 import Matches from "./components/adminComponents/section/matchesComponents/matches/matches";
+import VotePage from "./pages/votepage";
 import { FetchDataProvider } from "./context/fetchDataContext";
 import { ModalProvider } from "./context/modalContext";
 import { PlayerFormProvider } from "./context/playerFormContext";
@@ -18,6 +19,10 @@ function App() {
         <ActionProvider>
           <WindowSizeProvider>
             <Routes>
+              <Route
+                path="/"
+                element={<VotePage/>}
+              />
               <Route 
                 path="/admin" 
                 element={<Adminpage/>} 
