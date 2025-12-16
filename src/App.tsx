@@ -12,51 +12,57 @@ import { VideoProvider } from "./context/videoContext";
 import { MatchUpProvider } from "./context/matchupContext";
 import { ActionProvider } from "./context/actionContext";
 import { WindowSizeProvider } from "./context/windowsizeContext";
+import { FireBaseFetchDataProvider } from "./context/firebaseFetchData";
+import { FirebaseActionProvider } from "./context/firebaseActionContext";
 function App() {
   return (
     <FetchDataProvider>
       <ModalProvider>
         <ActionProvider>
           <WindowSizeProvider>
-            <Routes>
-              <Route
-                path="/"
-                element={<VotePage/>}
-              />
-              <Route 
-                path="/admin" 
-                element={<Adminpage/>} 
-              />
-              <Route
-                path="/adminmain/:username"
-                element={
-                  <PlayerFormProvider>
-                    <ImageProvider>
-                      <VideoProvider>
-                        <MatchUpProvider>
-                          <AdminMainPage/>
-                        </MatchUpProvider>
-                      </VideoProvider>
-                    </ImageProvider>
-                  </PlayerFormProvider>
-                }
-              >
-              <Route
-                index 
-                element={
-                  <Navigate to="Versus" replace />
-                }
-              />
-              <Route
-                path="Versus"
-                element={<Versus/>}          
-              />
-              <Route
-                path="Matches"
-                element={<Matches/>}          
-              />
-              </Route>
-            </Routes>
+            <FireBaseFetchDataProvider>
+              <FirebaseActionProvider>
+                <Routes>
+                  <Route
+                    path="/"
+                    element={<VotePage/>}
+                  />
+                  <Route 
+                    path="/admin" 
+                    element={<Adminpage/>} 
+                  />
+                  <Route
+                    path="/adminmain/:username"
+                    element={
+                      <PlayerFormProvider>
+                        <ImageProvider>
+                          <VideoProvider>
+                            <MatchUpProvider>
+                              <AdminMainPage/>
+                            </MatchUpProvider>
+                          </VideoProvider>
+                        </ImageProvider>
+                      </PlayerFormProvider>
+                    }
+                  >
+                  <Route
+                    index 
+                    element={
+                      <Navigate to="Versus" replace />
+                    }
+                  />
+                  <Route
+                    path="Versus"
+                    element={<Versus/>}          
+                  />
+                  <Route
+                    path="Matches"
+                    element={<Matches/>}          
+                  />
+                  </Route>
+                </Routes>
+              </FirebaseActionProvider>
+            </FireBaseFetchDataProvider>
           </WindowSizeProvider>
         </ActionProvider>
       </ModalProvider>

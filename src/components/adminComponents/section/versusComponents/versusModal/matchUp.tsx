@@ -1,25 +1,23 @@
 import { useContext } from "react";
-import FetchDataContext from "../../../../../context/fetchDataContext";
+import FireBaseFetchDataContext from "../../../../../context/firebaseFetchData";
+import FirebaseActionContext from "../../../../../context/firebaseActionContext";
 import MatchUpContext from "../../../../../context/matchupContext";
 import PlayerFormContext from "../../../../../context/playerFormContext";
-import ActionContext from "../../../../../context/actionContext";
 import ModalContext from "../../../../../context/modalContext";
 import toTitleCase from "../../../../../utils/toTitleCase";
 import ShowToast from "../../../../../utils/showToast";
 import type { Player } from "../../../../../types/models";
-import type { DataList } from "../../../../../types/models";
-import type { Matchup } from "../../../../../types/models";
 import { Clock } from 'lucide-react';
 import { Calendar } from 'lucide-react';
 const MatchUp = () => {
-    const { setMatchupList } = useContext(FetchDataContext)
+    const { matchupList } = useContext(FireBaseFetchDataContext)
     const { matchup, setMatchUp } = useContext(MatchUpContext)
     const { setPlayerOneDetails, 
         setPlayerTwoDetails,
         setIsPlayerOneReady,
         setIsPlayerTwoReady
     } = useContext(PlayerFormContext)
-    const { addAction } = useContext(ActionContext)
+    const { pushAction } = useContext(FirebaseActionContext)
     const { toggleModal } = useContext(ModalContext)
     const { Toast } = ShowToast()
 
@@ -35,16 +33,14 @@ const MatchUp = () => {
         votes: []
 
     }
-    console.log(matchup)
     const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        if(matchupList.data.length === 3){
+            Toast("error", "You’ve reached the maximum of 3 scheduled battles. Please remove a completed battle before adding a new one.", 3500)
+            return
+        }
         try {
-            const response = await addAction("matchups", matchup)
-            console.log(matchup)
-            console.log(response)
-            setMatchupList((prev: DataList<Matchup<any>>) => ({
-                data: [...prev.data, response]
-            }))
+            await pushAction("matchups", matchup)
         } catch (error) {
             if (error instanceof Error) {
                 console.error(error.message)
@@ -52,29 +48,8 @@ const MatchUp = () => {
                 console.error(error)
             }
         } finally {
-            setPlayerOneDetails({
-                image: "",
-                fullname: "",
-                team: "",
-                jerseynumber: 0,
-                champoinrings: 0,
-                achievements: [],
-                pictures: [],
-                highlights: [],
-                votes: []
-            })
-            setPlayerTwoDetails({
-                image: "",
-                fullname: "",
-                team: "",
-                jerseynumber: 0,
-                champoinrings: 0,
-                achievements: [],
-                pictures: [],
-                highlights: [],
-                votes: []
-
-            })
+            setPlayerOneDetails(emptyPlayer)
+            setPlayerTwoDetails(emptyPlayer)
             setMatchUp({
                 id: "",
                 playerOne: emptyPlayer,
@@ -113,6 +88,7 @@ const MatchUp = () => {
                     name="location"
                     placeholder="Bagong Pook Coliseum, Rosario, Batangas"
                     required
+                    spellCheck={false}
                     value={matchup.location}
                     onChange={(e) => {
                         const titleCase = toTitleCase(e.target.value)
@@ -121,7 +97,7 @@ const MatchUp = () => {
                             location: titleCase
                         }))
                     }}
-                    className="border border-black focus:outline-none focus:ring-1 focus:ring-white focus:border-white shadow-sm p-1 w-full bg-black text-white font-outfit
+                    className="customInput2 border border-black focus:outline-none focus:ring-1 focus:ring-white focus:border-white shadow-sm p-1 w-full bg-black text-white font-outfit
                     truncate overflow-hidden whitespace-nowrap"
                 />
             </div>
@@ -148,7 +124,7 @@ const MatchUp = () => {
                             time: e.target.value
                         }))
                     }}
-                    className="border border-black focus:outline-none focus:ring-1 focus:ring-white focus:border-white shadow-sm p-1 w-full bg-black text-white font-outfit"
+                    className="customInput2 border border-black focus:outline-none focus:ring-1 focus:ring-white focus:border-white shadow-sm p-1 w-full bg-black text-white font-outfit"
                     />
                     <span 
                         className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
@@ -179,7 +155,7 @@ const MatchUp = () => {
                                 date: e.target.value
                             }))
                         }}
-                        className="border border-black focus:outline-none focus:ring-1 focus:ring-white focus:border-white shadow-sm p-1 w-full bg-black text-white font-outfit"
+                        className="customInput2 border border-black focus:outline-none focus:ring-1 focus:ring-white focus:border-white shadow-sm p-1 w-full bg-black text-white font-outfit"
                     />
                     <span 
                         className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
@@ -209,7 +185,7 @@ const MatchUp = () => {
                             money: Number(e.target.value)
                         }))
                     }}
-                    className="border border-black focus:outline-none focus:ring-1 focus:ring-white focus:border-white shadow-sm p-1 w-[30%] bg-black text-white font-outfit"
+                    className="customInput2 border border-black focus:outline-none focus:ring-1 focus:ring-white focus:border-white shadow-sm p-1 w-[30%] bg-black text-white font-outfit"
                 />
             </div>
             <button

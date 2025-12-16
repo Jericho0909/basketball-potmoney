@@ -1,5 +1,8 @@
 import { useContext, useEffect, useState } from "react"
-import FetchDataContext from "../../../context/fetchDataContext"
+import FireBaseFetchDataContext from "../../../context/firebaseFetchData"
+import ModalContext from "../../../context/modalContext"
+import type { Matchup } from "../../../types/models"
+import type { FirebaseEntity } from "../../../types/models"
 import ItemCard from "../../itemCard"
 import useSectionInView from "../../../hooks/useViewSection"
 import { motion } from "framer-motion";
@@ -9,11 +12,14 @@ interface VotesProps {
 }
 
 const Votes = ({ setActiveSection }: VotesProps) => {
-    const { matchupList } = useContext(FetchDataContext)
+    const { matchupList } = useContext(FireBaseFetchDataContext)
+    const { setSelectedModal2, toggleModal } = useContext(ModalContext)
     const [ hasAnimated, setHasAnimated ] = useState<boolean>(false) 
     const { ref, isVisible } = useSectionInView()
-    const openVotes = () => {
-        return console.log("yeeah")
+    const openVotes = (id: string) => {
+        setSelectedModal2("vote")
+        toggleModal()
+        sessionStorage.setItem("VoteID", id)
     }
 
     const gamesLength = matchupList.data.length
@@ -50,7 +56,7 @@ const Votes = ({ setActiveSection }: VotesProps) => {
                             <ItemCard
                                 key={index}
                                 openTo="homepage"
-                                match={match}
+                                match={match as FirebaseEntity<Matchup<any>>}
                                 index={index}
                                 openModal={openVotes}
                                 

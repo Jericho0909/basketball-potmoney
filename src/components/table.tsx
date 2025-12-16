@@ -10,7 +10,7 @@ interface TableProps {
 
 const Table = ({tableHeader, tableBody, winner, handleclaimed}: TableProps ) => {
     return(
-        <table className="w-[90%] border-collapse overflow-hidden rounded-xl shadow-md">
+        <table className="w-[95%] border-collapse overflow-hidden rounded-xl shadow-md border border-black">
             <thead className="bg-gray-100 font-anton tracking-wide text-gray-700">
                 <tr>
                     {tableHeader.map((key, value) => (
@@ -33,12 +33,16 @@ const Table = ({tableHeader, tableBody, winner, handleclaimed}: TableProps ) => 
                             ${row.claimed ? "opacity-50 after:content-[''] after:absolute after:left-0 after:right-0 after:top-1/2 after:h-[2px] after:bg-black" : ""}
                         `}
                     >
-                        <td className="text-center py-3 px-4">
+                        <td className="text-center py-3 px-4 max-w-[12rem] truncate">
                             {row.id}
                         </td>
 
                         <td className="text-center py-3 px-4 max-w-[12rem] truncate">
                             {row.fullname}
+                        </td>
+
+                        <td className="text-center py-3 px-4 max-w-[12rem] truncate">
+                            {row.email}
                         </td>
 
                         <td className="text-center py-3 px-4">

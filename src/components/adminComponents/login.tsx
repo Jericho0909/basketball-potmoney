@@ -1,5 +1,5 @@
 import { useState, useContext } from "react"
-import FetchDataContext from "../../context/fetchDataContext";
+import FireBaseFetchDataContext from "../../context/firebaseFetchData";
 import { useNavigate } from "react-router-dom";
 import type { AdminAcc } from "../../types/models";
 import { Eye } from 'lucide-react';
@@ -8,7 +8,7 @@ import { EyeClosed } from 'lucide-react';
 import ShowToast from "../../utils/showToast";
 const Login = () => {
     const navigate = useNavigate()
-    const { adminList } = useContext(FetchDataContext)
+    const { adminList } = useContext(FireBaseFetchDataContext)
     const [ admin, setAdmin ] = useState<AdminAcc>({
         username: "",
         password: ""
@@ -17,19 +17,18 @@ const Login = () => {
     const [loginError, setLoginError] = useState<Boolean>(false);
     const { Toast } = ShowToast()
 
-    const accInfo = adminList.data.find(key => key)
-    if(!accInfo) return
-
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>, username: string, password: string) => {
         e.preventDefault()
-        if(accInfo.username === username && accInfo.password === password){
+        const isAdminAcc = adminList.data.find(key => key.username === username && key.password === password)
+        if(isAdminAcc){
             Toast("success", "Login successful!", 2000)
             setTimeout(() => {
                 navigate(`/adminmain/${username}`)
             }, 600)
         }
         else{
+            console.log(isAdminAcc)
             setLoginError(true)
         }
         
@@ -57,7 +56,7 @@ const Login = () => {
                             }
                         ))}
                         onFocus={() => setLoginError(false)}
-                        className="peer w-full p-3 rounded bg-nbaOrange border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black focus:border-black shadow-sm"
+                        className="customInput peer w-full p-3 rounded bg-nbaOrange border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black focus:border-black shadow-sm"
                     />
                     <label
                         htmlFor="username"
@@ -83,7 +82,7 @@ const Login = () => {
                             }
                         ))}
                         onFocus={() => setLoginError(false)}
-                        className="peer w-full p-3 rounded bg-nbaOrange border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black focus:border-black shadow-sm"
+                        className="customInput peer w-full p-3 rounded bg-nbaOrange border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black focus:border-black shadow-sm"
                         
                     />
                     <button

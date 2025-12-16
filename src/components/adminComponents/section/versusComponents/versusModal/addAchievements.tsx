@@ -134,6 +134,7 @@ const AddAchievements = () => {
                     id="achievements"
                     type="text"
                     placeholder="ex: MVP"
+                    spellCheck={false}
                     value={achievements}
                     onChange={(e) => {
                         const titleCase = toTitleCase(e.target.value)
@@ -145,7 +146,7 @@ const AddAchievements = () => {
                             handleAdd(achievements)
                         }
                     }}
-                    className="w-full border-black focus:outline-none focus:ring-1 focus:ring-white focus:border-white shadow-sm p-1 bg-black text-white font-outfit"
+                    className="customInput2 w-full border-black focus:outline-none focus:ring-1 focus:ring-white focus:border-white shadow-sm p-1 bg-black text-white font-outfit"
                 />
                 <button
                     type="button"

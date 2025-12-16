@@ -26,8 +26,8 @@ const PlayerFullName = ({ playerDetails, setPlayerDetails }: PlayerFormProps<any
                         }
                     })
                 }
-                className="border border-black focus:outline-none focus:ring-1 focus:ring-white focus:border-white shadow-sm
-                p-1 w-full bg-black text-white font-outfit"
+                className="border border-black focus:outline-none focus:ring-1 focus:ring-black focus:border-black shadow-sm
+                p-1 w-full bg-white text-black font-outfit"
             />
         </div>
     )

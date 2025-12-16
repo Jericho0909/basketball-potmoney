@@ -1,33 +1,37 @@
 import { useContext } from "react";
-import FetchDataContext from "../context/fetchDataContext";
-import ActionContext from "../context/actionContext";
+import FirebaseActionContext from "../context/firebaseActionContext";
 import type { Matchup } from "../types/models";
+import type { FirebaseEntity } from "../types/models";
 import formatTime12 from "../utils/formatTime12Hour";
 import formatDate from "../utils/formatDate";
 import compareDate from "../utils/compareDate";
 import votesPercentage from "../utils/votesPercentage";
 import ShowToast from "../utils/showToast";
+import countValidVotes from "../utils/countValidVotes";
 import { PhilippinePeso } from 'lucide-react';
 import { X } from 'lucide-react';
+import isVotingOpen from "../utils/isVotingOpen";
+import formatPeso from "../utils/formatPeso";
+
 
 interface ItemCardProps {
     openTo: string
-    match: Matchup<any>,
+    match: FirebaseEntity<Matchup<any>>,
     index: number,
     openModal: (id: string) => void
 }
 
 
 const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
-    const { matchupList, setMatchupList } = useContext(FetchDataContext)
-    const { deleteAction } = useContext(ActionContext)
+    const { removeAction } = useContext(FirebaseActionContext)
     const { Toast } = ShowToast()
 
+
+    const isAllowed = openTo === "homepage" && isVotingOpen(match.date, match.time)
+
     const deleteMatchUp = async(id: string) => {
-        const updatedList = matchupList.data.filter(key => key.id !== id)
         try {
-            await deleteAction("matchups", id)
-            setMatchupList({data: updatedList})
+            await removeAction("matchups", id)
             Toast("success", "You have successfully deleted the matchup.", 2000)
         } catch (error) {
             if (error instanceof Error) {
@@ -41,15 +45,24 @@ const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
     return (
         <div
             key={index}
-            onClick={() =>openModal(match.id)}
-            className="flex items-center justify-between w-full h-auto gap-2 p-2 border border-black shadow-sm rounded-lg cursor-pointer mb-3 hoverable:hover:shadow-md hoverable:hover:bg-gray-50 hoverable:hover:scale-[1.01] transition-all duration-200
-            relative"
+            onClick={() => {
+                if (isAllowed || openTo === "Adminmainpage"){
+                    openModal(match.id)
+                }
+            }}
+            className={`flex items-center justify-between w-full h-auto gap-2 p-2 border border-black shadow-sm rounded-lg mb-3 hoverable:hover:shadow-md hoverable:hover:bg-gray-50 hoverable:hover:scale-[1.01] transition-all duration-200
+            relative
+                ${isAllowed || openTo === "Adminmainpage"
+                    ? "cursor-pointer"
+                    : "cursor-not-allowed"
+                }
+            `}
         >
             {openTo === "Adminmainpage" && (
                 <div
                     onClick={(e) => {
                         e.stopPropagation()
-                        deleteMatchUp(match.id)
+                        deleteMatchUp(match.firebaseKey)
                     }}
                     className="absolute top-1 right-2 p-1 rounded-md
                     hover:bg-gray-200 hover:scale-105
@@ -99,7 +112,7 @@ const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
                     {match.playerOne.fullname}
                 </span>
                 <span className="text-[clamp(0.85rem,2vw,1.05rem)] font-outfit font-semibold">
-                    W: {votesPercentage(match.playerOne.votes.length, match.totalVotes)}
+                    W: {votesPercentage(countValidVotes(match.playerOne.votes), match.totalVotes)}
                 </span>
             </div>
             <div className="flex items-center justify-center flex-col flex-1">
@@ -123,7 +136,7 @@ const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
                         Total Pot 
                     </span>
                     <span className="flex items-center justify-center">
-                        <PhilippinePeso size={16}/>{match.money}
+                        <PhilippinePeso size={16}/>{formatPeso(match.money)}
                     </span>
                 </span>
             </div>
@@ -168,7 +181,7 @@ const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
                     {match.playerTwo.fullname}
                 </span>
                 <span className="text-[clamp(0.85rem,2vw,1.05rem)] font-outfit font-semibold">
-                    W: {votesPercentage(match.playerTwo.votes.length, match.totalVotes)}
+                    W: {votesPercentage(countValidVotes(match.playerTwo.votes), match.totalVotes)}
                 </span>
             </div>
         </div>

@@ -1,10 +1,10 @@
 import { useContext, useState, useRef, useEffect } from "react"
-import FetchDataContext from "../../../../../context/fetchDataContext"
-import ActionContext from "../../../../../context/actionContext"
+import FireBaseFetchDataContext from "../../../../../context/firebaseFetchData"
+import FirebaseActionContext from "../../../../../context/firebaseActionContext"
 import Table from "../../../../table"
 import type { Matchup } from "../../../../../types/models"
+import type { FirebaseEntity } from "../../../../../types/models"
 import type { TableHeaderType } from "../../../../../types/models"
-import type { DataList } from "../../../../../types/models"
 import type { Player } from "../../../../../types/models"
 import type { VoteType } from "../../../../../types/models"
 import toTitleCase from "../../../../../utils/toTitleCase"
@@ -13,8 +13,8 @@ import formatDate from "../../../../../utils/formatDate"
 import { Clock } from 'lucide-react';
 import { Calendar } from 'lucide-react';
 const MatchUpDetails = () => {
-    const { matchupList, setMatchupList } = useContext(FetchDataContext)
-    const { patchAction } = useContext(ActionContext)
+    const { matchupList } = useContext(FireBaseFetchDataContext)
+    const { updateAction } = useContext(FirebaseActionContext)
     const [ editLocation, setEditLocation ] = useState<boolean>(false)
     const [ editTime, setEditTime ] = useState<boolean>(false)
     const [ editDate, setEditDate ] = useState<boolean>(false)
@@ -42,11 +42,14 @@ const MatchUpDetails = () => {
     const matchup = matchupList.data.find(key => key.id === id)
     if(!matchup) return
 
-    const [ updatedMatchUp, setUpatedMatchUp ] = useState<Matchup<any>>(matchup)
+    const [updatedMatchUp, setUpatedMatchUp ] = useState<FirebaseEntity<Matchup<any>>>(matchup as FirebaseEntity<Matchup<any>>)
+
+    let key = updatedMatchUp.firebaseKey
 
     const tableHeader: TableHeaderType[] = [
         {label: "Id", key: "id"},
         {label: "FullName", key: "fullname"},
+        {label: "Email", key: "email"},
         {label: "G-Number", key: "gcashnumber"},
         {label: "Bet", key: "bet"},
         {label: "Claimed", key: "claimed"}
@@ -54,21 +57,15 @@ const MatchUpDetails = () => {
 
     const handleUpdate = async() => {
         if((matchup.location !== updatedMatchUp.location) || (matchup.time !== updatedMatchUp.time) || (matchup.date !== updatedMatchUp.date) || (updatedMatchUp.winner !== "")){
-            const response = await patchAction("matchups", matchup.id, updatedMatchUp)
-            setMatchupList((prev: DataList<Matchup<any>>) => {
-                return {
-                    data: prev.data.map(item =>
-                        item.id === matchup.id ? response : item
-                    )
-                }
-            })
+            await updateAction(
+                "matchups", 
+                key,
+               updatedMatchUp)
         }
-        else{
-            return
-        }
+        return
     }
 
-    const handleclaimed = async(id: string) => {
+    const handleclaimed = async(id: string) => {    
         if(matchup.winner === "") return
         const votes = winnerPlayerData.votes
 
@@ -87,15 +84,11 @@ const MatchUpDetails = () => {
                 playerOne: updatePlayerOneVotes
             }
 
-            const response = await patchAction("matchups", matchup.id, updated)
+            await updateAction("matchups",
+                key, 
+                updated
+            )
 
-            setMatchupList((prev: DataList<Matchup<any>>) => {
-                return {
-                    data: prev.data.map(item =>
-                        item.id === matchup.id ? response : item
-                    )
-                }
-            })
         }
 
         if(matchup.winner === matchup.playerTwo.fullname){
@@ -109,15 +102,11 @@ const MatchUpDetails = () => {
                 playerTwo: updatePlayerTwoVotes
             }
 
-            const response = await patchAction("matchups", matchup.id, updated)
+            await updateAction("matchups",
+                key, 
+                updated
+            )
 
-            setMatchupList((prev: DataList<Matchup<any>>) => {
-                return {
-                    data: prev.data.map(item =>
-                        item.id === matchup.id ? response : item
-                    )
-                }
-            })
         }
         
     }
@@ -160,6 +149,7 @@ const MatchUpDetails = () => {
                             name="location"
                             placeholder="Bagong Pook Coliseum, Rosario, Batangas"
                             required
+                            spellCheck={false}
                             value={updatedMatchUp.location}
                             onChange={(e) => {
                                 const titleCase = toTitleCase(e.target.value)
@@ -179,7 +169,7 @@ const MatchUpDetails = () => {
                                     handleUpdate()
                                 }
                             }}
-                            className="border border-black focus:outline-none focus:ring-1 focus:ring-white focus:border-white shadow-sm p-1 w-[45%] bg-black text-white font-outfit
+                            className="customInput2 border border-black focus:outline-none focus:ring-1 focus:ring-white focus:border-white shadow-sm p-1 w-[45%] bg-black text-white font-outfit
                             truncate overflow-hidden whitespace-nowrap mb-1"
                         />
                     )
@@ -220,7 +210,7 @@ const MatchUpDetails = () => {
                                         handleUpdate()
                                     }
                                 }}
-                                className="border border-black focus:outline-none focus:ring-1 focus:ring-white focus:border-white shadow-sm p-1 w-full bg-black text-white font-outfit mb-1"
+                                className="customInput2 border border-black focus:outline-none focus:ring-1 focus:ring-white focus:border-white shadow-sm p-1 w-full bg-black text-white font-outfit mb-1"
                             />
                             <span 
                                 className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
@@ -263,7 +253,7 @@ const MatchUpDetails = () => {
                                     setEditDate(false)
                                     handleUpdate()
                                 }}
-                                className="border border-black focus:outline-none focus:ring-1 focus:ring-white focus:border-white shadow-sm p-1 w-full bg-black text-white font-outfit mb-1"
+                                className="customInput2 border border-black focus:outline-none focus:ring-1 focus:ring-white focus:border-white shadow-sm p-1 w-full bg-black text-white font-outfit mb-1"
                             />
                             <span 
                                 className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
@@ -378,9 +368,9 @@ const MatchUpDetails = () => {
                 `}>
                     {selectedPlayer === ""
                         ? (
-                            <span className="font-outfit">
+                            <p className="font-outfit">
                                 Please select a player.
-                            </span>
+                            </p>
                         )
                         : (
                             selectedPlayer === matchup.playerOne.fullname

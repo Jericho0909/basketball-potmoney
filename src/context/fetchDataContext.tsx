@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import type { Props } from "../types/models";
 import type { DataList } from "../types/models";
 import type { Matchup } from "../types/models";
+import type { Admin } from "../types/models";
 import useAxiosFetch from "../hooks/useFetchData";
 
 interface FetchDataContextType<T> {
@@ -16,13 +17,6 @@ interface FetchDataContextType<T> {
     matchupFetchError: Error | null;
 
 }
-
-interface Admin {
-    id: string;
-    username: string;
-    password: string
-}
-
 
 const defaultValue: FetchDataContextType<any> = {
     adminData: [],

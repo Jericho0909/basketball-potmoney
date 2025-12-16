@@ -35,7 +35,7 @@ const AdminMainPage = () => {
         pictures: "flex items-center justify-center flex-col w-[95%] sm:w-[55%] md:w-[50%] lg:w-[44%] xl:w-[34%] min-h-[35%] sm:min-h-[33%] xl:min-h-[35%] p-1",
         highlights: "flex items-center justify-center flex-col w-[95%] sm:w-[55%] md:w-[50%] lg:w-[44%] xl:w-[34%] min-h-[35%] sm:min-h-[33%] xl:min-h-[35%] p-1",
         matchup: "flex items-center justify-center flex-col w-[95%] sm:w-[55%] md:w-[50%] lg:w-[44%] xl:w-[34%] min-h-[35%] sm:min-h-[33%] xl:min-h-[35%] p-1",
-        matchupdetails: "flex items-center justify-start flex-col w-[100%] sm:w-[90%] md:w-[80%] lg:w-[80%] xl:w-[75%] min-h-[35%] sm:min-h-[35%] p-1"
+        matchupdetails: "flex items-center justify-start flex-col w-full sm:w-full md:w-[85%] lg:w-[80%] xl:w-[78%] min-h-[35%] sm:min-h-[35%] p-1"
     }
 
     const toggleSidebar = () => {
@@ -145,7 +145,9 @@ const AdminMainPage = () => {
                 </div>
                 <AnimatePresence>
                     {isOpen && (
-                        <Modal style={selectedModal ? modalStyles[selectedModal] : ""}>
+                        <Modal 
+                            style={selectedModal ? modalStyles[selectedModal] : ""}
+                        >
                             {selectedModal !== "" && modalComponents[selectedModal]}
                         </Modal>
                     )}

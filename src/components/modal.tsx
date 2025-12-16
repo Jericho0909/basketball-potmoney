@@ -1,4 +1,4 @@
-import { ReactNode, useContext } from 'react';
+import { ReactNode, useContext, useEffect } from 'react';
 import ModalContext from '../context/modalContext';
 import { motion } from "framer-motion";
 import { X } from 'lucide-react';
@@ -9,7 +9,23 @@ interface ModalProps {
 }
 
 const Modal = ({ style, children }: ModalProps) => {
-    const { toggleModal } = useContext(ModalContext);
+    const { isOpen, toggleModal } = useContext(ModalContext);
+
+    useEffect(() => {
+            if(isOpen) {
+                document.documentElement.style.overflow = "hidden"
+                document.body.style.overflow = "hidden"
+            } 
+            else{
+                document.documentElement.style.overflow = ""
+                document.body.style.overflow = ""
+            }
+
+            return () => {
+                document.documentElement.style.overflow = ""
+                document.body.style.overflow = ""
+            }
+        }, [isOpen])
 
     return (
         <div

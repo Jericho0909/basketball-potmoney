@@ -22,10 +22,27 @@ const Versus = () => {
 
     const handleSubmitPlayerOne = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        const safePlayerOneDetails = {
+            ...playerOneDetails,
+            achievements: playerOneDetails.achievements.length === 0 
+                ? ["__empty__"] 
+                : [...playerOneDetails.achievements],
+            votes: playerOneDetails.votes.length === 0 
+                ? [{
+                    id: "__empty__",
+                    fullname: "__empty__",
+                    email: "__empty__",
+                    gcashnumber: "__empty__",
+                    bet: 0,
+                    claimed: false,
+                    betOn: "__empty__"
+                }]
+                : [...playerOneDetails.votes]
+        }
         setMatchUp(details => ({
             ...details,
             id: matchupId,
-            playerOne: playerOneDetails
+            playerOne: safePlayerOneDetails
         }))
         setIsPlayerOneReady(true)
     }
@@ -33,9 +50,27 @@ const Versus = () => {
 
     const handleSubmitPlayerTwo = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        const safePlayerTwoDetails = {
+            ...playerTwoDetails,
+            achievements: playerTwoDetails.achievements.length === 0 
+                ? ["__empty__"] 
+                : [...playerTwoDetails.achievements],
+            votes: playerTwoDetails.votes.length === 0 
+                ? [{
+                    id: "__empty__",
+                    fullname: "__empty__",
+                    email: "__empty__",
+                    gcashnumber: "__empty__",
+                    bet: 0,
+                    claimed: false,
+                    betOn: "__empty__"
+                }]
+                : [...playerTwoDetails.votes]
+        }
+
         setMatchUp(details => ({
             ...details,
-            playerTwo: playerTwoDetails
+            playerTwo: safePlayerTwoDetails
         }))
         setIsPlayerTwoReady(true)
     }
@@ -76,12 +111,12 @@ const Versus = () => {
                                 className={`font-outfit font-semibold tracking-wider text-black border-2 border-black px-5 py-2 rounded
                                 transition-all duration-200 hoverable:hover:text-white hoverable:hover:border-white
                                 hoverable:hover:bg-blue-600
-                                    ${playerOneDetails.pictures.length !== 0 ||
-                                    playerOneDetails.highlights.length !== 0 ? "cursor-not-allowed" : "cursor-pointer"}
+                                    ${playerOneDetails.pictures.length !== 1 ||
+                                    playerOneDetails.highlights.length !== 1 ? "cursor-not-allowed" : "cursor-pointer"}
                                 `}
                                 disabled={
-                                    playerOneDetails.pictures.length !== 0 ||
-                                    playerOneDetails.highlights.length !== 0
+                                    playerOneDetails.pictures.length !== 1 ||
+                                    playerOneDetails.highlights.length !== 1
                                 }
                             >
                                 Ready
@@ -129,12 +164,12 @@ const Versus = () => {
                                 className={`font-outfit font-semibold tracking-wider text-black border-2 border-black px-5 py-2 rounded
                                 transition-all duration-200 hoverable:hover:text-white hoverable:hover:border-white
                                 hoverable:hover:bg-blue-600
-                                    ${playerTwoDetails.pictures.length !== 0 ||
-                                    playerTwoDetails.highlights.length !== 0 ? "cursor-not-allowed" : "cursor-pointer"}
+                                    ${playerTwoDetails.pictures.length !== 1 ||
+                                    playerTwoDetails.highlights.length !== 1 ? "cursor-not-allowed" : "cursor-pointer"}
                                 `}
                                 disabled={
-                                    playerTwoDetails.pictures.length !== 0 ||
-                                    playerTwoDetails.highlights.length !== 0
+                                    playerTwoDetails.pictures.length !== 1 ||
+                                    playerTwoDetails.highlights.length !== 1
                                 }
                             >
                                 Ready

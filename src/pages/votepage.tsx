@@ -2,26 +2,38 @@ import { useContext, useState, useRef, useEffect } from "react";
 import Notification from "../components/notification";
 import Header from "../components/header";
 import Navbar from "../components/nav";
+import Modal from "../components/modal";
 import Main from "../components/main";
 import Footer from "../components/footer";
 import Home from "../components/votespageComponents/section/home";
 import Votes from "../components/votespageComponents/section/vote";
 import Rules from "../components/votespageComponents/section/rules";
 import Contact from "../components/votespageComponents/section/contact";
+import Vote from "../components/votespageComponents/votesModal/vote";
+import ModalContext from "../context/modalContext";
 import WindowSizeContext from "../context/windowsizeContext";
 import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
 import { SquareMenu } from 'lucide-react';
+import type { ModalKey2 } from "../types/models";
 import ShootingOne from "../assets/image/shooting-motion1.jpg"
 import ShootingTwo from "../assets/image/shooting-motion2.jpg"
 import ShootingThree from "../assets/image/shooting-motion3.jpg"
 const VotePage = () => {
+    const { isOpen, selectedModal2 } = useContext(ModalContext)
     const { isMobile } = useContext(WindowSizeContext)
     const [ isDropDownOpen, setIsDropDownOpen ] = useState<boolean>(false)
     const [ activeSection, setActiveSection ] = useState<string>("home")
     const [ delay, setDelay ] = useState<boolean>(true)
     const wrapperRef = useRef<HTMLDivElement | null>(null)
 
+    const modalComponents: Record<Exclude<ModalKey2, "">, React.ReactNode> = {
+        vote: <Vote/>
+    }
+
+    const modalStyles : Record<Exclude<ModalKey2, "">, string> = {
+        vote: "flex items-center justify-start flex-col w-[100%] sm:w-[90%] md:w-[80%] lg:w-[80%] xl:w-[60%] min-h-[35%] sm:min-h-[35%] p-1"
+    }
 
     const scrollToSection = (id: string) => {
         const sectionId = document.getElementById(id)
@@ -153,6 +165,15 @@ const VotePage = () => {
                     )
                 }
             </Header>
+            <AnimatePresence>
+                {isOpen && (
+                    <Modal 
+                        style={selectedModal2 ? modalStyles[selectedModal2] : ""}
+                    >
+                        {selectedModal2 !== "" && modalComponents[selectedModal2]}
+                    </Modal>
+                )}
+            </AnimatePresence>
             <Main style="flex items-center justify-start flex-col w-full min-h-[80svh] mt-[6rem] z-1">
                 <Home
                     setActiveSection={setActiveSection}
