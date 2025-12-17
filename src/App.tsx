@@ -4,21 +4,17 @@ import AdminMainPage from "./pages/adminmainpage";
 import Versus from "./components/adminComponents/section/versusComponents/versus/versus";
 import Matches from "./components/adminComponents/section/matchesComponents/matches/matches";
 import VotePage from "./pages/votepage";
-import { FetchDataProvider } from "./context/fetchDataContext";
 import { ModalProvider } from "./context/modalContext";
 import { PlayerFormProvider } from "./context/playerFormContext";
 import { ImageProvider } from "./context/imageContext";
 import { VideoProvider } from "./context/videoContext";
 import { MatchUpProvider } from "./context/matchupContext";
-import { ActionProvider } from "./context/actionContext";
 import { WindowSizeProvider } from "./context/windowsizeContext";
 import { FireBaseFetchDataProvider } from "./context/firebaseFetchData";
 import { FirebaseActionProvider } from "./context/firebaseActionContext";
 function App() {
   return (
-    <FetchDataProvider>
       <ModalProvider>
-        <ActionProvider>
           <WindowSizeProvider>
             <FireBaseFetchDataProvider>
               <FirebaseActionProvider>
@@ -64,9 +60,7 @@ function App() {
               </FirebaseActionProvider>
             </FireBaseFetchDataProvider>
           </WindowSizeProvider>
-        </ActionProvider>
       </ModalProvider>
-    </FetchDataProvider>
   )
 }
 

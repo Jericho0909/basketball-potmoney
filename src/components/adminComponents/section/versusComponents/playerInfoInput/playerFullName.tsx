@@ -1,7 +1,15 @@
 import type { PlayerFormProps } from "../../../../../types/models"
 import toTitleCase from "../../../../../utils/toTitleCase"
 
+
 const PlayerFullName = ({ playerDetails, setPlayerDetails }: PlayerFormProps<any>) => {
+
+    const saveToSessionStorage = (value: string): void => {
+        sessionStorage.setItem("fullname", value)
+    }
+
+
+
     return(
         <div className="flex items-center justify-start gap-1 w-[95%] sm:w-[90%] md:w-[85%] lg:w-[65%] xl:w-[55%]  p-1 mb-1">
             <label 
@@ -26,6 +34,9 @@ const PlayerFullName = ({ playerDetails, setPlayerDetails }: PlayerFormProps<any
                         }
                     })
                 }
+                onBlur={(e) => {
+                    saveToSessionStorage(e.target.value)
+                }}
                 className="border border-black focus:outline-none focus:ring-1 focus:ring-black focus:border-black shadow-sm
                 p-1 w-full bg-white text-black font-outfit"
             />
