@@ -6,9 +6,9 @@ interface HeaderProps {
 }
 const Header = ({title, children} : HeaderProps) => {
     return(
-        <div className="flex items-center justify-between w-full h-auto px-[1rem] fixed top-0 border border-black z-10 bg-white">
+        <div className="flex items-center justify-between w-full h-auto px-1 md:px-2 lg:px-[1rem] fixed top-0 border border-black z-10 bg-white">
             <div className="flex items-center w-auto h-auto p-1">
-                <div className="w-[5rem] h-[5rem] p-1">
+                <div className="w-[4rem] h-[4rem] lg:w-[5rem] lg:h-[5rem] lg:p-1">
                     <img
                     src={Ball}
                     alt="BasketBall-Ball"

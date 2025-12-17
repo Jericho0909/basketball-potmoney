@@ -111,12 +111,12 @@ const Versus = () => {
                                 className={`font-outfit font-semibold tracking-wider text-black border-2 border-black px-5 py-2 rounded
                                 transition-all duration-200 hoverable:hover:text-white hoverable:hover:border-white
                                 hoverable:hover:bg-blue-600
-                                    ${playerOneDetails.pictures.length !== 1 ||
-                                    playerOneDetails.highlights.length !== 1 ? "cursor-not-allowed" : "cursor-pointer"}
+                                    ${playerOneDetails.pictures.length !== 3 ||
+                                    playerOneDetails.highlights.length !== 2 ? "cursor-not-allowed" : "cursor-pointer"}
                                 `}
                                 disabled={
-                                    playerOneDetails.pictures.length !== 1 ||
-                                    playerOneDetails.highlights.length !== 1
+                                    playerOneDetails.pictures.length !== 3 ||
+                                    playerOneDetails.highlights.length !== 2
                                 }
                             >
                                 Ready
@@ -164,12 +164,12 @@ const Versus = () => {
                                 className={`font-outfit font-semibold tracking-wider text-black border-2 border-black px-5 py-2 rounded
                                 transition-all duration-200 hoverable:hover:text-white hoverable:hover:border-white
                                 hoverable:hover:bg-blue-600
-                                    ${playerTwoDetails.pictures.length !== 1 ||
-                                    playerTwoDetails.highlights.length !== 1 ? "cursor-not-allowed" : "cursor-pointer"}
+                                    ${playerTwoDetails.pictures.length !== 3 ||
+                                    playerTwoDetails.highlights.length !== 2 ? "cursor-not-allowed" : "cursor-pointer"}
                                 `}
                                 disabled={
-                                    playerTwoDetails.pictures.length !== 1 ||
-                                    playerTwoDetails.highlights.length !== 1
+                                    playerTwoDetails.pictures.length !== 3 ||
+                                    playerTwoDetails.highlights.length !== 2
                                 }
                             >
                                 Ready

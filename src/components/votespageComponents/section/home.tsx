@@ -47,7 +47,7 @@ const Home = ({ setActiveSection }: HomeProps) => {
                     </span>
                 ))}
                 </div>
-                <p className="font-outfit text-[1rem] text-nbaOrange italic drop-shadow-[2px_3px_0px_rgba(0,0,0,1)]">
+                <p className="font-outfit text-[clamp(0.85rem,3vw,1.05rem)] text-nbaOrange italic drop-shadow-[2px_3px_0px_rgba(0,0,0,1)] whitespace-nowrap">
                     Vote for your player. Make every point count.
                 </p>
             </div>
