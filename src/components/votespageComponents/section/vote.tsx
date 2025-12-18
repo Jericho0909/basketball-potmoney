@@ -11,11 +11,17 @@ interface VotesProps {
     setActiveSection: React.Dispatch<React.SetStateAction<string>>
 }
 
+interface FirebaseMatchup extends FirebaseEntity<any>, Matchup<any> {}
+
 const Votes = ({ setActiveSection }: VotesProps) => {
     const { matchupList } = useContext(FireBaseFetchDataContext)
     const { setSelectedModal2, toggleModal } = useContext(ModalContext)
     const [ hasAnimated, setHasAnimated ] = useState<boolean>(false) 
     const { ref, isVisible } = useSectionInView()
+
+    const matchupArray: FirebaseMatchup [] = matchupList.data
+
+
     const openVotes = (id: string) => {
         setSelectedModal2("vote")
         toggleModal()
@@ -52,9 +58,9 @@ const Votes = ({ setActiveSection }: VotesProps) => {
             {gamesLength !== 0
                 ? (
                     <div className="w-full xl:w-[80%] h-auto">
-                        {matchupList.data.map((match, index) => (
+                        {matchupArray.map((match, index) => (
                             <ItemCard
-                                key={index}
+                                key={match.firebaseKey}
                                 openTo="homepage"
                                 match={match as FirebaseEntity<Matchup<any>>}
                                 index={index}

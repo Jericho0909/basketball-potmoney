@@ -18,7 +18,6 @@ interface PlayerFormContextType<T> {
 
 const defaultValue: PlayerFormContextType<any> = {
     playerOneDetails: {
-        image: "",
         fullname: "",
         team: "",
         jerseynumber: 0,
@@ -30,7 +29,6 @@ const defaultValue: PlayerFormContextType<any> = {
     },
     setPlayerOneDetails: () => {},
     playerTwoDetails: {
-        image: "",
         fullname: "",
         team: "",
         jerseynumber: 0,
@@ -51,7 +49,6 @@ const PlayerFormContext = createContext<PlayerFormContextType<any>>(defaultValue
 
 export const PlayerFormProvider = ({ children }: Props) => {
     const [ playerOneDetails, setPlayerOneDetails ] = useState<Player<any>>({
-        image: "",
         fullname: "",
         team: "",
         jerseynumber: 0,
@@ -63,7 +60,6 @@ export const PlayerFormProvider = ({ children }: Props) => {
     })
 
     const [ playerTwoDetails, setPlayerTwoDetails ] = useState<Player<any>>({
-        image: "",
         fullname: "",
         team: "",
         jerseynumber: 0,

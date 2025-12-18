@@ -5,7 +5,6 @@ export interface Props {
 }
 
 export interface Player <T> {
-    image: string | null
     fullname: string,
     team: string,
     jerseynumber: number,
@@ -16,19 +15,6 @@ export interface Player <T> {
     votes: VoteType[]
 }
 
-export interface PlayerFirebase {
-  image: string | null;
-  fullname: string;
-  team: string;
-  jerseynumber: number;
-  champoinrings: number;
-
-  achievements?: Record<string, string>;
-  pictures?: Record<string, string>;
-  highlights?: Record<string, string>;
-
-  votes?: Record<string, VoteType>;
-}
 
 export interface PlayerFormProps<T> {
     playerDetails: Player<T>

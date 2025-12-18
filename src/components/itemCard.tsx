@@ -80,7 +80,7 @@ const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
                             src={match.playerOne.pictures[0]}
                             alt="playerOne-Img"
                             loading="lazy"
-                            className="w-[6rem] h-[6rem] sm:w-[7rem] sm:h-[7rem] md:w-[8.50rem] md:h-[8.50rem] lg:w-[9rem] lg:h-[9rem] xl:w-[10rem] xl:h-[10rem] rounded-[50%] object-cover shadow-md ring-2 ring-black"
+                            className="w-[6rem] h-[6rem] sm:w-[7rem] sm:h-[7rem] md:w-[8.50rem] md:h-[8.50rem] lg:w-[9rem] lg:h-[9rem] xl:w-[10rem] xl:h-[10rem] rounded-[50%] object-cover lg:shadow-md lg:ring-2 lg:ring-black"
                         />
                         {match.winner !== "" && (
                                 <div className={`absolute top-0 left-0 w-full h-full rounded-[50%] pointer-events-none
@@ -149,7 +149,7 @@ const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
                             src={match.playerTwo.pictures[0]}
                             alt="playerTwo-Img"
                             loading="lazy"
-                            className="w-[6rem] h-[6rem] sm:w-[7rem] sm:h-[7rem] md:w-[8.50rem] md:h-[8.50rem] lg:w-[9rem] lg:h-[9rem] xl:w-[10rem] xl:h-[10rem] rounded-[50%] object-cover shadow-md ring-2 ring-black"
+                            className="w-[6rem] h-[6rem] sm:w-[7rem] sm:h-[7rem] md:w-[8.50rem] md:h-[8.50rem] lg:w-[9rem] lg:h-[9rem] xl:w-[10rem] xl:h-[10rem] rounded-[50%] object-cover lg:shadow-md lg:ring-2 lg:ring-black"
                         />
                         {match.winner !== "" && (
                                 <div className={`absolute top-0 left-0 w-full h-full rounded-[50%] pointer-events-none

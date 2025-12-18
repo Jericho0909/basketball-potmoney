@@ -22,7 +22,6 @@ const MatchUp = () => {
     const { Toast } = ShowToast()
 
     const emptyPlayer: Player<any> = {
-        image: "",
         fullname: "",
         team: "",
         jerseynumber: 0,

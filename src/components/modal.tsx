@@ -39,10 +39,10 @@ const Modal = ({ style, children }: ModalProps) => {
                 className={`relative bg-nbaOrange rounded-md shadow-lg ${style}`}
             >
                 <button
-                    className="absolute top-2 right-2"
+                    className="absolute top-1 right-2 sm:right-3 md:right-1"
                     onClick={toggleModal}
                 >
-                    <X size={16} color="black" strokeWidth={3} />
+                    <X size={24} color="black" strokeWidth={3} />
                 </button>
                 {children}
             </motion.div>

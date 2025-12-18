@@ -14,7 +14,6 @@ const Vote = () => {
     const [ selectedComponents, setSelectedComponents ] = useState<VoteKey>("")
     const [ selectedPlayer, setSelectedPlayer ] = useState<string>("")
     const [ seletedPlayerDetails, setSeletedPlayerDetails ] = useState<Player<any>>({
-        image: "",
         fullname: "",
         team: "",
         jerseynumber: 0,
@@ -85,7 +84,7 @@ const Vote = () => {
     }, [selectedPlayer])
 
     return (
-        <div className="flex items-center justify-center flex-col w-[90%] h-auto p-1 mx-1 border border-black bg-white rounded-md">
+        <div className="flex items-center justify-center flex-col w-full sm:w-[98%] md:w-[94%] h-auto p-1 mx-1 border border-black bg-white rounded-md">
             <span className="font-bebas font-semibold tracking-wide text-[clamp(1.20rem,3vw,2.20rem)]">
                 Select a Player
             </span>

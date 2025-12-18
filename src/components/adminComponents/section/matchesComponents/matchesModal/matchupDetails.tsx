@@ -21,7 +21,6 @@ const MatchUpDetails = () => {
     const [ selectedPlayer, setSelectedPlayer ] = useState<string>("")
     const [ whoIsTheWinner, setWhoIsTheWinner ] = useState<string>("")
     const [ winnerPlayerData, setWinnerPlayerData ] = useState<Player<any>>({
-        image: "",
         fullname: "",
         team: "",
         jerseynumber: 0,
