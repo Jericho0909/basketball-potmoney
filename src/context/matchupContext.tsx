@@ -9,7 +9,6 @@ interface MatchUpType  {
 }
 
 const emptyPlayer: Player<any> = {
-    image: "",
     fullname: "",
     team: "",
     jerseynumber: 0,
