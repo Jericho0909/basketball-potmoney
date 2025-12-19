@@ -26,6 +26,7 @@ const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
     const { removeAction } = useContext(FirebaseActionContext)
     const [ loadedImg1, setLoadedImg1 ] = useState<boolean>(false)
     const [ loadedImg2, setLoadedImg2 ] = useState<boolean>(false)
+    const [showImage, setShowImage] = useState<boolean>(false)
     const { Toast } = ShowToast()
 
 
@@ -78,7 +79,7 @@ const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
             >
                 <div className="relative w-auto h-auto p-1">
                     <>
-                        {!loadedImg1 && (
+                        {!showImage && (
                             <div
                             className="
                                 absolute inset-0
@@ -93,10 +94,15 @@ const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
                             alt="playerOne-Img"
                             loading="lazy"
                             decoding="async"
-                            onLoad={() => setLoadedImg1(true)}
+                            onLoad={() => {
+                                setLoadedImg1(true);
+                                setTimeout(() => {
+                                    setShowImage(true);
+                                }, 3000);
+                            }}
                             onError={() => setLoadedImg1(true)}
                             className={`w-[6rem] h-[6rem] sm:w-[7rem] sm:h-[7rem] md:w-[8.50rem] md:h-[8.50rem] lg:w-[9rem] lg:h-[9rem] xl:w-[10rem] xl:h-[10rem] rounded-[50%] object-cover lg:shadow-md lg:ring-2 lg:ring-black
-                                 ${loadedImg1 ? "opacity-100" : "opacity-0"}
+                                 ${showImage ? "opacity-100" : "opacity-0"}
                             `}
                         />
                         {match.winner !== "" && (
@@ -177,10 +183,15 @@ const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
                             alt="playerTwo-Img"
                             loading="lazy"
                             decoding="async"
-                            onLoad={() => setLoadedImg2(true)}
+                            onLoad={() => {
+                                setLoadedImg2(true);
+                                setTimeout(() => {
+                                    setShowImage(true);
+                                }, 300)
+                            }}
                             onError={() => setLoadedImg2(true)}
                             className={`w-[6rem] h-[6rem] sm:w-[7rem] sm:h-[7rem] md:w-[8.50rem] md:h-[8.50rem] lg:w-[9rem] lg:h-[9rem] xl:w-[10rem] xl:h-[10rem] rounded-[50%] object-cover lg:shadow-md lg:ring-2 lg:ring-black
-                                 ${loadedImg1 ? "opacity-100" : "opacity-0"}
+                                 ${showImage ? "opacity-100" : "opacity-0"}
                             `}
                         />
                         {match.winner !== "" && (
