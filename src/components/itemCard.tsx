@@ -79,7 +79,7 @@ const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
             >
                 <div className="relative w-auto h-auto p-1">
                     <>
-                        {!showImage && (
+                        {!showImage && loadedImg1 && (
                             <div
                             className="
                                 absolute inset-0
