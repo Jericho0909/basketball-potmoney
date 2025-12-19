@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import FirebaseActionContext from "../context/firebaseActionContext";
 import type { Matchup } from "../types/models";
 import type { FirebaseEntity } from "../types/models";
@@ -24,9 +24,9 @@ interface ItemCardProps {
 
 const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
     const { removeAction } = useContext(FirebaseActionContext)
-    const [ loadedImg1, setLoadedImg1 ] = useState<boolean>(false)
-    const [ loadedImg2, setLoadedImg2 ] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const { Toast } = ShowToast()
+    const startTime = useRef(performance.now());
 
 
     const isAllowed = openTo === "homepage" && isVotingOpen(match.date, match.time)
@@ -34,7 +34,7 @@ const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
     const deleteMatchUp = async(id: string) => {
         try {
             await removeAction("matchups", id)
-            Toast("success", "You have successfully deleted the matchup.", 2000)
+            Toast("success", "You have successfully deleted the matchup.", 5000)
         } catch (error) {
             if (error instanceof Error) {
                 console.error("Delete failed:", error.message)
@@ -78,25 +78,25 @@ const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
             >
                 <div className="relative w-auto h-auto p-1">
                     <>
-                        {loadedImg1 && (
-                            <div
-                            className="
-                                absolute inset-0
-                                rounded-full
-                                bg-gray-300
-                                lg:animate-pulse
-                            "
-                            />
-                        )}
                         <img
                             src={match.playerOne.pictures[0]}
                             alt="playerOne-Img"
                             loading="lazy"
                             decoding="async"
-                            onLoad={() => setLoadedImg1(true)}
-                            onError={() => setLoadedImg1(true)}
-                            className={`w-[6rem] h-[6rem] sm:w-[7rem] sm:h-[7rem] md:w-[8.50rem] md:h-[8.50rem] lg:w-[9rem] lg:h-[9rem] xl:w-[10rem] xl:h-[10rem] rounded-[50%] object-cover lg:shadow-md lg:ring-2 lg:ring-black
-                                 ${loadedImg1 ? "opacity-100" : "opacity-0"}
+                            onLoad={() => {
+    const elapsed = performance.now() - startTime.current;
+    const remaining = Math.max(0, 6000 - elapsed);
+    setTimeout(() => setIsLoading(false), remaining);
+  }}
+                            onError={() => setIsLoading(false)}
+                            className={`w-[6rem] h-[6rem] sm:w-[7rem] sm:h-[7rem] md:w-[8.50rem] md:h-[8.50rem] lg:w-[9rem] lg:h-[9rem] xl:w-[10rem] xl:h-[10rem] rounded-full object-cover lg:shadow-md lg:ring-2 lg:ring-black
+                                ${isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100 transition-opacity duration-300'}
+                            `}
+                        />
+
+                        <div
+                            className={`absolute inset-0 w-[6rem] h-[6rem] sm:w-[7rem] sm:h-[7rem] md:w-[8.50rem] md:h-[8.50rem] lg:w-[9rem] lg:h-[9rem] xl:w-[10rem] xl:h-[10rem] rounded-full bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 animate-pulse bg-[length:200%_100%]
+                                ${isLoading ? 'block' : 'hidden'}
                             `}
                         />
                         {match.winner !== "" && (
@@ -162,25 +162,24 @@ const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
             >
                 <div className="relative w-auto h-auto p-1">
                     <>
-                        {!loadedImg2 && (
-                            <div
-                            className="
-                                absolute inset-0
-                                rounded-full
-                                bg-gray-300
-                                lg:animate-pulse
-                            "
-                            />
-                        )}
                         <img
                             src={match.playerTwo.pictures[0]}
                             alt="playerTwo-Img"
                             loading="lazy"
                             decoding="async"
-                            onLoad={() => setLoadedImg2(true)}
-                            onError={() => setLoadedImg2(true)}
-                            className={`w-[6rem] h-[6rem] sm:w-[7rem] sm:h-[7rem] md:w-[8.50rem] md:h-[8.50rem] lg:w-[9rem] lg:h-[9rem] xl:w-[10rem] xl:h-[10rem] rounded-[50%] object-cover lg:shadow-md lg:ring-2 lg:ring-black
-                                 ${loadedImg2 ? "opacity-100" : "opacity-0"}
+                            onLoad={() => {
+    const elapsed = performance.now() - startTime.current;
+    const remaining = Math.max(0, 6000 - elapsed);
+    setTimeout(() => setIsLoading(false), remaining);
+  }}
+                            onError={() => setIsLoading(false)}
+                            className={`w-[6rem] h-[6rem] sm:w-[7rem] sm:h-[7rem] md:w-[8.50rem] md:h-[8.50rem] lg:w-[9rem] lg:h-[9rem] xl:w-[10rem] xl:h-[10rem] rounded-full object-cover lg:shadow-md lg:ring-2 lg:ring-black
+                                ${isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100 transition-opacity duration-300'}
+                            `}
+                        />
+                        <div
+                            className={`absolute inset-0 w-[6rem] h-[6rem] sm:w-[7rem] sm:h-[7rem] md:w-[8.50rem] md:h-[8.50rem] lg:w-[9rem] lg:h-[9rem] xl:w-[10rem] xl:h-[10rem] rounded-full bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 animate-pulse bg-[length:200%_100%]
+                                ${isLoading ? 'block' : 'hidden'}
                             `}
                         />
                         {match.winner !== "" && (
