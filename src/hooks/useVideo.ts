@@ -3,6 +3,7 @@ import axios from "axios";
 const useVideo = () => {
     const [ vidPreview, setVidPreview ] = useState<string | null>(null)
     const [ loadingVid, setLoadingVid ] = useState<boolean>(false)
+    const [ progress, setProgress ] = useState<number>(0)
     
     const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
@@ -15,8 +16,16 @@ const useVideo = () => {
 
         try {
             const response = await axios.post('https://api.cloudinary.com/v1_1/daxhmcpkq/video/upload', formData, {
-                headers: { "Content-Type": "multipart/form-data" },
-                timeout: 0,
+                    headers: { "Content-Type": "multipart/form-data" },
+                    timeout: 0,
+                    onUploadProgress: (progressEvent) => {
+                        if (!progressEvent.total) return;
+
+                        const percent = Math.round(
+                            (progressEvent.loaded * 100) / progressEvent.total
+                        )
+                        setProgress(percent)
+                    }
                 }
 
             )
@@ -35,7 +44,8 @@ const useVideo = () => {
     return { 
         vidPreview,
         setVidPreview, 
-        loadingVid, 
+        loadingVid,
+        progress, 
         handleUpload 
     };
 }

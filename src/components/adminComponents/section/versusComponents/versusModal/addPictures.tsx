@@ -8,13 +8,19 @@ const AddPictures = () => {
         playerTwoDetails,
         setPlayerTwoDetails 
     } = useContext(PlayerFormContext)
-    const { preview, setPreview, loadingimg, handleUpload } = useContext(ImageContext)
+    const { preview, 
+        setPreview, 
+        loadingimg,
+        progress, 
+        handleUpload } = useContext(ImageContext)
     const player = sessionStorage.getItem("savetO")
     const playerPics = player === "PlayerOne"
         ? playerOneDetails.pictures
         : playerTwoDetails.pictures
 
     const fileRef = useRef<HTMLInputElement>(null)
+
+    console.log(progress)
 
     const handleAdd = (img: string | null) => {
         if(playerPics.length === 3){
@@ -123,9 +129,9 @@ const AddPictures = () => {
                     className="w-full text-white font-outfit"
                     onChange={(e) => handleUpload(e)}
                     onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                        e.preventDefault()
-                        handleAdd(preview)
+                        if (e.key === "Enter"){
+                            e.preventDefault()
+                            handleAdd(preview)
                         }
                     }}
                 />
@@ -133,14 +139,17 @@ const AddPictures = () => {
                     onClick={() => handleAdd(preview)}
                     type="button"
                     className={`font-outfit font-semibold tracking-wider text-white border border-nbaOrange rounded p-1  transition-all duration-200 hoverable:hover:bg-nbaOrange hoverable:hover:text-black hoverable:hover:border-black w-[3.50rem] h-[2rem]
-                        ${loadingimg && "cursor-not-allowed"}    
+                        ${(loadingimg || preview === null) 
+                            ? "cursor-not-allowed"
+                            : ""
+                        }    
                     `}
-                    disabled={loadingimg}
+                    disabled={loadingimg || preview === null}
                 >
                     {loadingimg ? (
                         <div className="flex items-center justify-center w-full h-full">
-                            <div className="w-[1.50rem] h-[1.50rem] loader">
-
+                            <div className="flex items-center justify-center w-[3rem] h-[1.50rem]">
+                                {progress}%
                             </div>
                         </div>
                         ) : (

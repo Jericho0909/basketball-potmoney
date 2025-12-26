@@ -1,5 +1,7 @@
 import { ReactNode, useContext, useEffect } from 'react';
 import ModalContext from '../context/modalContext';
+import ImageContext from '../context/imageContext';
+import VideoContext from '../context/videoContext';
 import { motion } from "framer-motion";
 import { X } from 'lucide-react';
 
@@ -9,7 +11,9 @@ interface ModalProps {
 }
 
 const Modal = ({ style, children }: ModalProps) => {
-    const { isOpen, toggleModal } = useContext(ModalContext);
+    const { isOpen, toggleModal } = useContext(ModalContext)
+    const { setPreview } = useContext(ImageContext)
+    const { setVidPreview } = useContext(VideoContext)
 
     useEffect(() => {
             if(isOpen) {
@@ -25,7 +29,7 @@ const Modal = ({ style, children }: ModalProps) => {
                 document.documentElement.style.overflow = ""
                 document.body.style.overflow = ""
             }
-        }, [isOpen])
+    }, [isOpen])
 
     return (
         <div
@@ -40,7 +44,12 @@ const Modal = ({ style, children }: ModalProps) => {
             >
                 <button
                     className="absolute top-1 right-2 sm:right-3 md:right-1"
-                    onClick={toggleModal}
+                    onClick={() => {
+                        toggleModal(),
+                        setPreview(null)
+                        setVidPreview(null)
+                        
+                    }}
                 >
                     <X size={24} color="black" strokeWidth={3} />
                 </button>

@@ -26,7 +26,7 @@ const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
     const { removeAction } = useContext(FirebaseActionContext)
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const { Toast } = ShowToast()
-    const startTime = useRef(performance.now());
+    const startTime = useRef(performance.now())
 
 
     const isAllowed = openTo === "homepage" && isVotingOpen(match.date, match.time)
@@ -84,10 +84,12 @@ const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
                             loading="lazy"
                             decoding="async"
                             onLoad={() => {
-    const elapsed = performance.now() - startTime.current;
-    const remaining = Math.max(0, 6000 - elapsed);
-    setTimeout(() => setIsLoading(false), remaining);
-  }}
+                                const elapsed = performance.now() - startTime.current
+                                const remaining = Math.max(0, 3000 - elapsed)
+                                setTimeout(() => 
+                                    setIsLoading(false), remaining
+                                )
+                            }}
                             onError={() => setIsLoading(false)}
                             className={`w-[6rem] h-[6rem] sm:w-[7rem] sm:h-[7rem] md:w-[8.50rem] md:h-[8.50rem] lg:w-[9rem] lg:h-[9rem] xl:w-[10rem] xl:h-[10rem] rounded-full object-cover lg:shadow-md lg:ring-2 lg:ring-black
                                 ${isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100 transition-opacity duration-300'}
@@ -168,10 +170,12 @@ const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
                             loading="lazy"
                             decoding="async"
                             onLoad={() => {
-    const elapsed = performance.now() - startTime.current;
-    const remaining = Math.max(0, 6000 - elapsed);
-    setTimeout(() => setIsLoading(false), remaining);
-  }}
+                                const elapsed = performance.now() - startTime.current
+                                const remaining = Math.max(0, 3000 - elapsed)
+                                setTimeout(() => 
+                                    setIsLoading(false), remaining
+                                )
+                            }}
                             onError={() => setIsLoading(false)}
                             className={`w-[6rem] h-[6rem] sm:w-[7rem] sm:h-[7rem] md:w-[8.50rem] md:h-[8.50rem] lg:w-[9rem] lg:h-[9rem] xl:w-[10rem] xl:h-[10rem] rounded-full object-cover lg:shadow-md lg:ring-2 lg:ring-black
                                 ${isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100 transition-opacity duration-300'}

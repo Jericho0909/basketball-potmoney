@@ -8,7 +8,12 @@ const AddHighlights = () => {
         playerTwoDetails,
         setPlayerTwoDetails 
     } = useContext(PlayerFormContext)
-    const { vidPreview, setVidPreview, loadingVid, handleUpload } = useContext(VideoContext)
+    const { vidPreview, 
+        setVidPreview, 
+        loadingVid, 
+        progress, 
+        handleUpload 
+    } = useContext(VideoContext)
     const fileRef = useRef<HTMLInputElement>(null)
     const player = sessionStorage.getItem("Saveto")
     const playerHighlights = player === "PlayerOne"
@@ -130,14 +135,17 @@ const AddHighlights = () => {
                     onClick={() => handleAdd(vidPreview)}
                     type="button"
                     className={`font-outfit font-semibold tracking-wider text-white border border-nbaOrange rounded p-1  transition-all duration-200 hoverable:hover:bg-nbaOrange hoverable:hover:text-black hoverable:hover:border-black w-[3.50rem] h-[2rem]
-                        ${loadingVid && "cursor-not-allowed"}    
+                        ${(loadingVid || vidPreview === null)
+                            ? "cursor-not-allowed"
+                            : ""
+                        }    
                     `}
-                    disabled={loadingVid}
+                    disabled={loadingVid || vidPreview === null}
                 >
                     {loadingVid ? (
                         <div className="flex items-center justify-center w-full h-full">
-                            <div className="w-[1.50rem] h-[1.50rem] loader">
-
+                            <div className="flex items-center justify-center w-[3rem] h-[1.50rem]">
+                                {progress}%
                             </div>
                         </div>
                         ) : (

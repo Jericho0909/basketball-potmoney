@@ -4,8 +4,9 @@ import type { Props } from "../types/models";
 
 interface VideoContextType {
     vidPreview: string | null,
-    setVidPreview: React.Dispatch<React.SetStateAction<string | null>>
-    loadingVid: boolean
+    setVidPreview: React.Dispatch<React.SetStateAction<string | null>>,
+    loadingVid: boolean,
+    progress: number,
     handleUpload: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -13,19 +14,21 @@ const defaultValue: VideoContextType = {
     vidPreview: "",
     setVidPreview: () => {},
     loadingVid: false,
+    progress: 0,
     handleUpload: () => {}
 }
 
 const VideoContext = createContext<VideoContextType>(defaultValue)
 
 export const VideoProvider = ({children}: Props) => {
-    const { vidPreview, setVidPreview, loadingVid, handleUpload } = useVideo()
+    const { vidPreview, setVidPreview, loadingVid, progress, handleUpload } = useVideo()
     return(
         <VideoContext.Provider
             value={{
                 vidPreview,
                 setVidPreview, 
-                loadingVid, 
+                loadingVid,
+                progress,
                 handleUpload
             }}
         >

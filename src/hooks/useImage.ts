@@ -3,6 +3,7 @@ import axios from "axios";
 const useImage = () => {
     const [ preview, setPreview ] = useState<string | null>(null)
     const [ loadingimg, setLoadingImg ] = useState<boolean>(false)
+    const [ progress, setProgress ] = useState<number>(0)
     
     const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
@@ -14,7 +15,19 @@ const useImage = () => {
         formData.append("upload_preset", "PlayerPics")
 
         try {
-            const response = await axios.post('https://api.cloudinary.com/v1_1/daxhmcpkq/image/upload', formData)
+            const response = await axios.post('https://api.cloudinary.com/v1_1/daxhmcpkq/image/upload', 
+                formData,
+                {
+                    onUploadProgress: (progressEvent) => {
+                        if (!progressEvent.total) return;
+
+                        const percent = Math.round(
+                            (progressEvent.loaded * 100) / progressEvent.total
+                        )
+                        setProgress(percent)
+                    }
+                }
+            )
 
             if (response.data.secure_url) {
                 const imageUrl = response.data.secure_url
@@ -30,7 +43,8 @@ const useImage = () => {
     return { 
         preview,
         setPreview, 
-        loadingimg, 
+        loadingimg,
+        progress,
         handleUpload 
     }
 }

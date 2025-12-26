@@ -6,6 +6,7 @@ interface ImageContextType {
     preview: string | null,
     setPreview: React.Dispatch<React.SetStateAction<string | null>>,
     loadingimg: boolean,
+    progress: number
     handleUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -13,6 +14,7 @@ const defaultValue:ImageContextType = {
     preview: "",
     setPreview:  () => {},
     loadingimg: false,
+    progress: 0,
     handleUpload: () => {}
 
 }
@@ -20,13 +22,14 @@ const defaultValue:ImageContextType = {
 const ImageContext = createContext<ImageContextType>(defaultValue)
 
 export const ImageProvider = ({children}: Props) => {
-    const { preview, setPreview, loadingimg, handleUpload } = useImage()
+    const { preview, setPreview, loadingimg, progress, handleUpload } = useImage()
     return(
         <ImageContext.Provider
             value={{
                 preview,
                 setPreview,
                 loadingimg,
+                progress,
                 handleUpload
             }}
         >

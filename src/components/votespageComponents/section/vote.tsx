@@ -17,6 +17,7 @@ const Votes = ({ setActiveSection }: VotesProps) => {
     const { matchupList } = useContext(FireBaseFetchDataContext)
     const { setSelectedModal2, toggleModal } = useContext(ModalContext)
     const [ hasAnimated, setHasAnimated ] = useState<boolean>(false) 
+    const [ showVoteSection, setShowVoteSection ] = useState<boolean>(false)
     const { ref, isVisible } = useSectionInView()
 
     const matchupArray: FirebaseMatchup [] = matchupList.data
@@ -33,7 +34,9 @@ const Votes = ({ setActiveSection }: VotesProps) => {
     useEffect(() => {
         if(isVisible){
             setActiveSection("votes")
+            setShowVoteSection(true)
             setHasAnimated(true)
+
             history.replaceState(null, "", "#votes")
         }
     }, [isVisible])
@@ -55,7 +58,7 @@ const Votes = ({ setActiveSection }: VotesProps) => {
             <span className="font-bebas font-semibold tracking-wide text-[clamp(1.50rem,3vw,2.50rem)] text-nbaOrange">
                 VOTES
             </span>
-            {gamesLength !== 0
+            {(gamesLength !== 0 && showVoteSection)
                 ? (
                     <div className="w-full xl:w-[80%] h-auto">
                         {matchupArray.map((match, index) => (
