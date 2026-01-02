@@ -110,6 +110,15 @@ const Rules = ({ setActiveSection }: RulesProps) => {{
                     <li className="font-outfit font-semibold text-[clamp(0.85rem,3vw,1rem)]">
                         “This voting system is for fun and fan engagement. Not affiliated with the NBA, PBA, or any official basketball organization.”
                     </li>
+                    <li className="font-outfit font-semibold text-[clamp(0.85rem,3vw,1rem)]">
+                        To see the current score in real time, please watch the match here: <a
+                            href="https://www.facebook.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-nbaOrange underline hover:text-orange-600 transition-colors">
+                                facebook/Play4Pot
+                            </a>
+                    </li>
                 </ul>
             </div>
             <div className="w-full h-auto p-1">
