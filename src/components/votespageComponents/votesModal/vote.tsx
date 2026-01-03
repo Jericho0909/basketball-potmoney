@@ -32,12 +32,6 @@ const Vote = () => {
     const player1Pictures = [ ...matchup.playerOne.pictures ]
     const player2Pictures = [ ...matchup.playerTwo.pictures ]
 
-    const handleFullScreen = (e: React.MouseEvent<HTMLVideoElement>) => {
-        const video = e.currentTarget
-        if (video.requestFullscreen){
-            video.requestFullscreen()
-        }
-    }
 
      const handleBet = () => {
         setSelectedComponents("bet")
@@ -47,13 +41,11 @@ const Vote = () => {
         playerOneDetails: 
             <PlayerOneDetails
                 seletedPlayerDetails={seletedPlayerDetails}
-                handleFullScreen={handleFullScreen}
                 handleBet={handleBet}
             />,
         playerTwoDetails: 
             <PlayerTwoDetails 
                 seletedPlayerDetails={seletedPlayerDetails}
-                handleFullScreen={handleFullScreen}
                 handleBet={handleBet}
             />,
         bet: 

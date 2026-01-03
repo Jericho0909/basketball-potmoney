@@ -21,7 +21,7 @@ const AddHighlights = () => {
         : playerTwoDetails.highlights
 
     const handleAdd = (vid: string | null) => {
-        if(playerHighlights.length === 3){
+        if(playerHighlights.length === 2){
             return
         }
 
@@ -75,10 +75,10 @@ const AddHighlights = () => {
                 <span className="absolute top-0 font-outfit">
                     {player === "PlayerOne"
                         ? (
-                            `${playerOneDetails.highlights.length}/3`
+                            `${playerOneDetails.highlights.length}/2`
                         )
                         : (
-                            `${playerTwoDetails.highlights.length}/3`
+                            `${playerTwoDetails.highlights.length}/2`
                         )
                     }
                 </span>

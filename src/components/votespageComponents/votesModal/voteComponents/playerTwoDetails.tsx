@@ -3,11 +3,10 @@ import { motion } from "framer-motion";
 
 interface PlayerTwoDetailsProps {
     seletedPlayerDetails: Player<any>,
-    handleFullScreen: (e: React.MouseEvent<HTMLVideoElement, MouseEvent>) => void,
     handleBet: () => void
 }
 
-const PlayerTwoDetails = ({ seletedPlayerDetails, handleFullScreen, handleBet }: PlayerTwoDetailsProps) => {
+const PlayerTwoDetails = ({ seletedPlayerDetails, handleBet }: PlayerTwoDetailsProps) => {
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -94,7 +93,6 @@ const PlayerTwoDetails = ({ seletedPlayerDetails, handleFullScreen, handleBet }:
                     >
                     <video
                         src={vid}
-                        onClick={(e) => handleFullScreen(e)}
                         controls
                         className="w-full h-full object-cover"
                     />
