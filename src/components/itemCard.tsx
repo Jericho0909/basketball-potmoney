@@ -52,7 +52,7 @@ const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
                     openModal(match.id)
                 }
             }}
-            className={`flex items-center justify-between w-full h-auto gap-2 p-2 border border-black shadow-sm rounded-lg mb-3 hoverable:hover:shadow-md hoverable:hover:bg-gray-50 hoverable:hover:scale-[1.01] transition-all duration-200
+            className={`flex items-center justify-between w-full h-auto gap-2 py-2 border border-black shadow-sm rounded-lg mb-3 hoverable:hover:shadow-md hoverable:hover:bg-gray-50 hoverable:hover:scale-[1.01] transition-all duration-200
             relative
                 ${isAllowed || openTo === "Adminmainpage"
                     ? "cursor-pointer"
@@ -141,7 +141,7 @@ const ItemCard = ({openTo, match, index, openModal }: ItemCardProps) => {
                 <span className="text-[clamp(0.75rem,2vw,1.10rem)] font-outfit font-semibold truncate overflow-hidden whitespace-nowrap">
                     {compareDate(match.date)}
                 </span>
-                <span className="text-[clamp(0.75rem,2vw,1.10rem)] font-outfit font-semibold truncate overflow-hidden whitespace-nowrap">
+                <span className="text-[clamp(0.75rem,2vw,1.10rem)] font-outfit font-semibold whitespace-wrap w-[8rem] sm:w-auto text-center block">
                     {match.location}
                 </span>
                 <span className="text-[clamp(0.75rem,2vw,1.10rem)] font-outfit font-semibold">
