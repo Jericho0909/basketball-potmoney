@@ -88,7 +88,7 @@ const AdminMainPage = () => {
                         className="font-outfit font-semibold tracking-wider text-black border-2 border-black px-6 py-3 rounded
                         transition-all duration-200 hoverable:hover:text-white hoverable:hover:border-white"
                     >
-                        LOG IN
+                        LOG OUT
                     </button>
                 </li>
             </ul>
