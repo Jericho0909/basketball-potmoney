@@ -13,17 +13,14 @@ const PlayerNumber = ({ playerDetails, setPlayerDetails }: PlayerFormProps<any>)
                 type="number"
                 name="jerseynumber"
                 placeholder="0"
-                required  
-                value={playerDetails.jerseynumber || ""}
-                onChange={(e) =>
-                    setPlayerDetails(details => (
-                        {
+                value={playerDetails.jerseynumber}
+                    onChange={(e) => {
+                        const value = e.target.value
+                        setPlayerDetails(details => ({
                             ...details,
-                            [e.target.name]:
-                            Number(e.target.value)
-                        }
-                    ))
-                }
+                            jerseynumber: value === "" ? "" : Number(value)
+                        }))
+                    }}
                 className="border border-black focus:outline-none focus:ring-1 focus:ring-black focus:border-black shadow-sm
                 p-1 w-full bg-white text-black font-outfit"
             />

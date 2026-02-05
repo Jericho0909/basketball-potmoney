@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 
-const useAxiosFetch = <T>(dataUrl: string)=> {
+const useAxiosFetch = <T>(dataUrl: string) => {
     const [data, setData] = useState<T[]>([])
     const [fetchError, setFetchError] = useState<Error | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)

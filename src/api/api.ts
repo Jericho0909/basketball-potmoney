@@ -1,7 +1,10 @@
 import axios from 'axios';
 
 const DbApi = axios.create({
-  baseURL: 'http://localhost:3500'
+  baseURL: 'http://localhost:3500',
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 export default DbApi;

@@ -11,8 +11,8 @@ interface MatchUpType  {
 const emptyPlayer: Player<any> = {
     fullname: "",
     team: "",
-    jerseynumber: 0,
-    champoinrings: 0,
+    jerseynumber: "",
+    champoinrings: "",
     achievements: [],
     pictures: [],
     highlights: [],

@@ -20,8 +20,8 @@ const defaultValue: PlayerFormContextType<any> = {
     playerOneDetails: {
         fullname: "",
         team: "",
-        jerseynumber: 0,
-        champoinrings: 0,
+        jerseynumber: "",
+        champoinrings: "",
         achievements: [],
         pictures: [],
         highlights: [],
@@ -31,8 +31,8 @@ const defaultValue: PlayerFormContextType<any> = {
     playerTwoDetails: {
         fullname: "",
         team: "",
-        jerseynumber: 0,
-        champoinrings: 0,
+        jerseynumber: "",
+        champoinrings: "",
         achievements: [],
         pictures: [],
         highlights: [],
@@ -51,8 +51,8 @@ export const PlayerFormProvider = ({ children }: Props) => {
     const [ playerOneDetails, setPlayerOneDetails ] = useState<Player<any>>({
         fullname: "",
         team: "",
-        jerseynumber: 0,
-        champoinrings: 0,
+        jerseynumber: "",
+        champoinrings: "",
         achievements: [],
         pictures: [],
         highlights: [],
@@ -62,8 +62,8 @@ export const PlayerFormProvider = ({ children }: Props) => {
     const [ playerTwoDetails, setPlayerTwoDetails ] = useState<Player<any>>({
         fullname: "",
         team: "",
-        jerseynumber: 0,
-        champoinrings: 0,
+        jerseynumber: "",
+        champoinrings: "",
         achievements: [],
         pictures: [],
         highlights: [],

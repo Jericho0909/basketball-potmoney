@@ -7,8 +7,8 @@ export interface Props {
 export interface Player <T> {
     fullname: string,
     team: string,
-    jerseynumber: number,
-    champoinrings: number,
+    jerseynumber: number | ""
+    champoinrings: number | "",
     achievements: T[],
     pictures: T[],
     highlights: T[]

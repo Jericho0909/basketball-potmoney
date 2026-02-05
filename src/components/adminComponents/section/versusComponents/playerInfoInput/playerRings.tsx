@@ -12,18 +12,15 @@ const PlayerRings = ({ playerDetails, setPlayerDetails }: PlayerFormProps<any>) 
                 id="player-rings"
                 type="number"
                 name="champoinrings"
-                placeholder="0"
-                required    
-                value={playerDetails.champoinrings || ""}
-                onChange={(e) =>
-                    setPlayerDetails(details => (
-                        {
+                placeholder="0" 
+                value={playerDetails.champoinrings}
+                 onChange={(e) => {
+                        const value = e.target.value
+                        setPlayerDetails(details => ({
                             ...details,
-                            [e.target.name]:
-                            Number(e.target.value)
-                        }
-                    ))
-                }
+                            champoinrings: value === "" ? "" : Number(value)
+                        }))
+                    }}
                 className="border border-black focus:outline-none focus:ring-1 focus:ring-black focus:border-black shadow-sm
                 p-1 w-full bg-white text-black font-outfit"
             />

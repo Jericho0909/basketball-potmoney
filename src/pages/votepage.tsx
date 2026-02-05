@@ -47,7 +47,7 @@ const VotePage = () => {
         return(
             <ul 
                 className={`flex items-center justify-between p-1 w-auto h-auto
-                    ${isDropDownOpen ? "flex-col gap-1" : ""}
+                    ${isMobile ? "flex-col gap-1" : ""}
                 `}
             >
                 <li 
