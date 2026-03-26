@@ -28,10 +28,16 @@ const Login = () => {
             }, 600)
         }
         else{
-            console.log(isAdminAcc)
             setLoginError(true)
         }
         
+    }
+
+    const handleFillUpForm = (): void => {
+        setAdmin(() => ({
+            username: "TheAdmin",
+            password: "TheBasketBall123"
+        }))
     }
 
     return(
@@ -41,7 +47,7 @@ const Login = () => {
             </h3>
             <form 
                 onSubmit={(e) => handleSubmit(e, admin.username, admin.password)}
-                className="flex items-center justify-center flex-col  w-full h-full mt-[1rem]"
+                className="flex items-center justify-center flex-col  w-full h-full mt-[1rem] mb-6"
             >
                 <div className="relative w-full bg-nbaOrange rounded mb-[1.50rem]">
                     <input
@@ -119,6 +125,19 @@ const Login = () => {
                     LOG IN
                 </button>
             </form>
+            <div className="flex items-center justify-end gap-2 w-full p-1">
+                <p className="text-xs font-semibold">
+                    Use demo account:
+                </p>
+                <button 
+                    type="button"
+                    onClick={() => handleFillUpForm()}
+                    className="font-outfit text-xs font-semibold tracking-wider text-black border-2 border-black px-3 py-1 rounded
+                    transition-all duration-200 hoverable:hover:text-white hoverable:hover:border-white"
+                >
+                    Admin
+                </button>
+            </div>
         </div>
     )
 }
